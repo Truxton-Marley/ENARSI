@@ -1,0 +1,9 @@
+VPN Technologies 20%
+2.1 Describe MPLS operations (LSR, LDP, label switching, LSP)
+2.2 Describe MPLS Layer 3 VPN
+2.3 Configure and verify DMVPN (single hub)
+	• 2.3.a GRE/mGRE
+	• 2.3.b NHRP
+	• 2.3.c IPsec
+	• 2.3.d Dynamic neighbor
+2.3.e Spoke-to-spoke

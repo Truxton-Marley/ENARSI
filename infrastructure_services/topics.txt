@@ -1,0 +1,11 @@
+Infrastructure Services 25%
+4.1 Troubleshoot device management
+• 4.1.a Console and VTY
+• 4.1.b Telnet, HTTP, HTTPS, SSH, SCP
+• 4.1.c (T)FTP
+4.2 Troubleshoot SNMP (v2c, v3)
+4.3 Troubleshoot network problems using logging (local, syslog, debugs, conditional debugs, timestamps)
+4.4 Troubleshoot IPv4 and IPv6 DHCP (DHCP client, IOS DHCP server, DHCP relay, DHCP options)
+4.5 Troubleshoot network performance issues using IP SLA (jitter, tracking objects, delay, connectivity)
+4.6 Troubleshoot NetFlow (v5, v9, flexible NetFlow)
+4.7 Troubleshoot network problems using Cisco DNA Center assurance (connectivity, monitoring, device health, network health)

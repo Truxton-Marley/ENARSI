@@ -1,0 +1,57 @@
+import common_prompts as cp
+
+questions = [
+{
+"question" : """""",
+"answer" : "",
+"prompt": cp.config,
+"clear_screen": False,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """""",
+"answer" : "",
+"prompt": cp.config,
+"clear_screen": False,
+"suppress_positive_affirmation": False
+},
+]
+#"post_task_output": """"""
+
+
+policy-map bunny
+  class ROUTING
+    police 100000 5000 8000 conform-action transmit exceed-action set-qos-transmit 4 violate-action drop
+
+!!!
+
+
+
+# #TODO: consider refactoring this into smaller functions
+# def get_answer(questions):
+#     for question in questions:
+#         #TODO: clean up clear screen; adjust for Linux
+#         if question.get("clear_screen"):
+#             time.sleep(1)
+#             system("cls")
+#         print(question["question"], end="")
+#         # Get answer and handle multiline answer logic
+#         answer = ""
+#         split_question = question["answer"].split("\n")
+#         for line in split_question:
+#             answer += input(question["prompt"])
+#             # Only add new line to answer if not the last line in answer
+#             if line != split_question[-1]:
+#                 answer += "\n"
+#         if answer == question["answer"]:
+#             if question.get("suppress_positive_affirmation"):
+#                 continue
+#             print("\n" + encouragement[random.randint(0, (len(encouragement) - 1))])
+#         elif answer == "hint":
+#             print(answer)
+#         else:
+#             print("Better luck next time.\nThe correct answer was:\n")
+#             for line in question["answer"].split("\n"):
+#                 print(question["prompt"] + line)
+#             #print(question["prompt"] + question["answer"])
+#             wait = input("\nHit enter when you're ready for the next question.")
