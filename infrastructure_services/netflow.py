@@ -191,7 +191,8 @@ and the record to "rec1".
 """,
 "answer" : "flow monitor mon1",
 "prompt": cp.config,
-"clear_screen": True
+"clear_screen": True,
+"suppress_positive_affirmation": True
 },
 {"question" : "",
 "answer" : """exporter exp1

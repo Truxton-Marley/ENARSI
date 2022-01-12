@@ -12,11 +12,11 @@ Create a basic ICMP-ECHO IP SLA (42).
 Destination address 42.42.42.42
 Send it every 10 seconds.
 
-R1(config)#ip sla 1
-R1(config-ip-sla)#icmp-echo 1.1.1.1
+R1(config)#ip sla 42
+R1(config-ip-sla)#icmp-echo 42.42.42.42
 R1(config-ip-sla-echo)#frequency 10  
 R1(config-ip-sla-echo)#exit
-R1(config)# ip sla schedule 1 life forever start-time now
+R1(config)# ip sla schedule 42 life forever start-time now
 
 R1#show ip sla statistics
 
@@ -45,8 +45,8 @@ R1#show ip sla statistics
 That was a basic IP SLA.
 Let's schedule it to run forever now.
 
-R1(config)#ip sla 1
-R1(config-ip-sla)#icmp-echo 1.1.1.1
+R1(config)#ip sla 42
+R1(config-ip-sla)#icmp-echo 42.42.42.42
 R1(config-ip-sla-echo)#frequency 10  
 R1(config-ip-sla-echo)#exit
 
@@ -62,7 +62,7 @@ R1(config-ip-sla-echo)#exit
 Now it's time to measure Jitter.
 
 Create an IP SLA (66) to measure UDP Jitter.
-Used destination 66.66.66.66:17000 with codec
+Use destination 66.66.66.66:17000 with codec
 g711ulaw and a frequency of 10.
 
 """,

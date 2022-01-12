@@ -9,7 +9,7 @@ questions = [
 ####################
 
 Start by creating an SNMP View.
-Name the view and include iso.
+Name "god" the view and include iso.
 
 """,
 "answer" : "snmp-server view god iso included",

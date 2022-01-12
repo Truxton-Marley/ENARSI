@@ -1,71 +1,71 @@
 import common_prompts as cp
 
 questions = [
-# {
-# "question" : """
+{
+"question" : """
 
-# #################################
-# ###     ACLs w/ Time Range    ###
-# #################################
+#################################
+###     ACLs w/ Time Range    ###
+#################################
 
-# Create a time-range named feierabend that covers:
-#     22:00 - 6:00 on weekday
-#     the weekends
+Create a time-range named feierabend that covers:
+    22:00 - 6:00 on weekday
+    the weekends
 
-# """,
-# "answer" : "time-range feierabend",
-# "prompt": cp.config,
-# "clear_screen": False,
-# "suppress_positive_affirmation": True
-# },
-# {
-# "question" : "",
-# "answer" : """periodic weekdays 22:00 to 23:59
-# periodic weekdays 0:00 to 6:00
-# periodic weekend 0:00 to 23:59""",
-# "prompt": cp.config_time_range,
-# "clear_screen": False,
-# "suppress_positive_affirmation": False
-# },
-# {
-# "question" : """
-# Let's apply the time-range to the extended ACL "feierabend".
-# We can go crazy and just let all traffic go through. It's
-# a party!!!
+""",
+"answer" : "time-range feierabend",
+"prompt": cp.config,
+"clear_screen": False,
+"suppress_positive_affirmation": True
+},
+{
+"question" : "",
+"answer" : """periodic weekdays 22:00 to 23:59
+periodic weekdays 0:00 to 6:00
+periodic weekend 0:00 to 23:59""",
+"prompt": cp.config_time_range,
+"clear_screen": False,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Let's apply the time-range to the extended ACL "feierabend".
+We can go crazy and just let all traffic go through. It's
+a party!!!
 
-# R1#show time-range
-# time-range entry: feierabend (inactive)
-#    periodic weekdays 0:00 to 6:00
-#    periodic weekdays 22:00 to 23:59
-#    periodic weekend 0:00 to 23:59
-# R1#
-# R1#configure terminal
-# R1(config)#
-# R1(config)#ip access-list extended feierabend
-# """,
-# "answer" : "permit ip any any time-range feierabend",
-# "prompt": cp.config_ext_nacl,
-# "clear_screen": True,
-# "suppress_positive_affirmation": False
-# },
-# {
-# "question" : """
+R1#show time-range
+time-range entry: feierabend (inactive)
+   periodic weekdays 0:00 to 6:00
+   periodic weekdays 22:00 to 23:59
+   periodic weekend 0:00 to 23:59
+R1#
+R1#configure terminal
+R1(config)#
+R1(config)#ip access-list extended feierabend
+""",
+"answer" : "permit ip any any time-range feierabend",
+"prompt": cp.config_ext_nacl,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
 
-# Once again, you pulled through and suppled the config we needed!!!
-# Mario is proud and Princess Peach can reach the WWW in her free time.
+Once again, you pulled through and suppled the config we needed!!!
+Mario is proud and Princess Peach can reach the WWW in her free time.
 
-# Let's have a look at our work. Show all the configured ACLs.
+Let's have a look at our work. Show all the configured ACLs.
 
-# """,
-# "answer" : "show ip access-lists",
-# "prompt": cp.config,
-# "clear_screen": True,
-# "post_task_output": """
-# Extended IP access list feierabend
-#     10 permit ip any any time-range feierabend (inactive)
-# """,
-# "suppress_positive_affirmation": False
-# },
+""",
+"answer" : "show ip access-lists",
+"prompt": cp.config,
+"clear_screen": True,
+"post_task_output": """
+Extended IP access list feierabend
+    10 permit ip any any time-range feierabend (inactive)
+""",
+"suppress_positive_affirmation": False
+},
 {
 "question" : """
 

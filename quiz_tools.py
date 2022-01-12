@@ -48,6 +48,9 @@ def check_answer(answer, question):
             print(question["prompt"] + line)
         # Pause to give user time to view the correct answer
         wait = input("\nHit enter when you're ready for the next question.")
+        ask_question(question)
+        answer = get_answer(question)
+        check_answer(answer, question)
 
 def preview_answer(question):
     print("\n#################")

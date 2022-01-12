@@ -38,6 +38,8 @@ modules = [
     layer_3.vrf_lite.questions,
     layer_3.bfd.questions,
     layer_3.bgp.questions,
+    layer_3.bgp.questions_2,
+    layer_3.bgp.questions_3,
     # VPN
     vpn_tech.mpls.questions,
     # vpn_tech.dmvpn.questions,
@@ -61,15 +63,15 @@ modules = [
 
 system('cls')
 
-# ask_questions(modules[-5])
-# clear_screen_slowly(wait=2)
-
-ask_questions(modules[6])
+# TEMP: start off with BGP module
+r = random.randint(5, 7)
+ask_questions(modules[r])
 clear_screen_slowly(wait=2)
 
-# ask_questions(modules[-1])
+# ask_questions(modules[7])
 # clear_screen_slowly()
 
+# Randomly select three modules
 random_index = random.randint(0, len(modules) - 1)
 ask_questions(modules[random_index])
 random_index = random.randint(0, len(modules) - 1)
