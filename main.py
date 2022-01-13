@@ -3,6 +3,7 @@ from os import system
 
 # Section 1: Layer 3 Technologies Imports 35%
 import layer_3.eigrp
+import layer_3.ospf
 import layer_3.redistribution
 import layer_3.pbr
 import layer_3.vrf_lite
@@ -33,6 +34,7 @@ from quiz_tools import clear_screen_slowly
 modules = [
     #Layer 3
     layer_3.eigrp.questions,
+    layer_3.ospf.questions,
     layer_3.redistribution.questions,
     layer_3.pbr.questions,
     layer_3.vrf_lite.questions,
@@ -40,9 +42,11 @@ modules = [
     layer_3.bgp.questions,
     layer_3.bgp.questions_2,
     layer_3.bgp.questions_3,
+    layer_3.bgp.questions_4,
+    layer_3.bgp.questions_5,
     # VPN
     vpn_tech.mpls.questions,
-    # vpn_tech.dmvpn.questions,
+    vpn_tech.dmvpn.questions,
     # vpn_tech.ipsec.questions,
     # Infrastructure Security
     infrastructure_security.acls.questions,
@@ -64,7 +68,7 @@ modules = [
 system('cls')
 
 # TEMP: start off with BGP module
-r = random.randint(5, 7)
+r = random.randint(5, 9)
 ask_questions(modules[r])
 clear_screen_slowly(wait=2)
 
