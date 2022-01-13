@@ -23,13 +23,16 @@ to a collection server on UDP port 514 at 1.1.1.1.
 
 Make sure only "Warnings" and lower are sent
 to the collection server.
+
+Also source the traffic from lo0.
 !
 logging buffered 32678 debugging
 no logging console
 !
 """,
 "answer" : """logging host 1.1.1.1
-logging trap warnings""",
+logging trap warnings
+logging source-interface lo0""",
 "prompt": cp.config,
 "clear_screen": True,
 "suppress_positive_affirmation": False

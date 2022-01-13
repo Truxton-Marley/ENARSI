@@ -437,12 +437,144 @@ R1(config-router)#address-family ipv4
 },
 {
 "question" : """
-Set peer 2.2.2.2 to be a RR client.
+Please set up a router to participate in a BGP confederation:
+Real AS: 42
+Confederation AS: 65042
+Directly Connected Confederation AS Peer: 65024
+
+""",
+"answer" : "router bgp 65042",
+"prompt": cp.config,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : "",
+"answer" : "bgp confederation identifier 42",
+"prompt": cp.config_router,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : "",
+"answer" : "bgp confederation peers 65024",
+"prompt": cp.config_router,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+]
+
+questions_5 = [
+{
+"question" : """
+
+###############################################
+###             BGP Communities             ###
+###############################################
+
+Enable BGP to send standard communties to peer 2.2.2.2
 
 R1(config)#router bgp 42
+R1(config-router)#address-family ipv4
+R1(config-router-af)#
 """,
-"answer" : "neighbor 2.2.2.2 route-reflector-client",
-"prompt": cp.config_router,
+"answer" : "neighbor 2.2.2.2 send-community",
+"prompt": cp.config_router_af,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Enable BGP to send extended communties to peer 2.2.2.2
+
+R1(config)#router bgp 42
+R1(config-router)#address-family ipv4
+R1(config-router-af)#
+""",
+"answer" : "neighbor 2.2.2.2 send-community extended",
+"prompt": cp.config_router_af,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Enable BGP to send extended and standard communties to peer 2.2.2.2
+
+R1(config)#router bgp 42
+R1(config-router)#address-family ipv4
+R1(config-router-af)#
+""",
+"answer" : "neighbor 2.2.2.2 send-community both",
+"prompt": cp.config_router_af,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Display BGP communities using the new format.
+
+R1(config)#
+""",
+"answer" : "ip bgp-community new-format",
+"prompt": cp.config,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Configure the RM to set the No-Advertise Community
+Do not advertise to ANY BGP Peers!
+
+R1(config)route-map my_rm permit 10#
+""",
+"answer" : "set community no-advertise",
+"prompt": cp.config_route_map,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Configure the RM to set the No-Export Community
+Do not advertise to any eBGP Peers, but other confed sub-ASs are allowed.
+
+R1(config)route-map my_rm permit 10#
+""",
+"answer" : "set community no-export",
+"prompt": cp.config_route_map,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Configure the RM to set the local-as Community
+Do not advertise to any eBGP Peers, but NOT EVEN confed sub-ASs are allowed.
+
+R1(config)route-map my_rm permit 10#
+""",
+"answer" : "set community local-as",
+"prompt": cp.config_route_map,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Display all BGP IPv4 unicast routes with extended community 101:100
+
+R1#
+""",
+"answer" : "show bgp ipv4 unicast community 101:100",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Create a community list to match the community 101:100
+
+R1(config)#
+""",
+"answer" : "ip community-list 1 permit 101:100",
+"prompt": cp.priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False
 },

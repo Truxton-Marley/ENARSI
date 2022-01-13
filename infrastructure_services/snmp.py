@@ -44,5 +44,16 @@ R1(config)#
 "answer": "snmp-server user bunny kitties v3 auth md5 cisco123 priv aes 256 cisco123",
 "prompt": cp.config,
 "clear_screen": True
+},
+{
+"question": """
+Maybe we need to use SNMPv2c. Let's also create a community string, cisco123,
+with read-only privileges, limit the community with ACL 42
+!
+R1(config)#
+""",
+"answer": "snmp-server community cisco123 RO 42",
+"prompt": cp.config,
+"clear_screen": True
 }
 ]

@@ -54,14 +54,14 @@ Also, SSH needs to be enabled.
 Let's enable SCP on the device now.
 
 """,
-"answer" : "ip scp enable",
+"answer" : "ip scp server enable",
 "prompt": cp.user_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False
 },
 {
 "question" : """
-Set the enable password with sha56 encryption.
+Set the enable password with sha256 encryption.
 """,
 "answer" : "enable algorithm-type sha256 secret cisco123",
 "prompt": cp.config,

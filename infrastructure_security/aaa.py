@@ -80,16 +80,41 @@ authorization methodlist. This would work without the
 previous authentication methodlist as well.
 
 """,
-"answer" : "aaa authorization exec default local",
+"answer" : "aaa authorization exec default group TG local",
 "prompt": cp.config,
 "clear_screen": False,
 "suppress_positive_affirmation": False
 },
-# {
-# "question" : """""",
-# "answer" : "",
-# "prompt": cp.config,
-# "clear_screen": False,
-# "suppress_positive_affirmation": False
-# },
+{
+"question" : """
+We can also use older syntax and create an unnamed TACACS+ Server.
+Use destination 1.1.1.1
+Timeout 10
+Key Cisco123
+
+""",
+"answer" : """tacacs-server host 1.1.1.1
+tacacs-server timeout 10
+tacacs-server key cisco123
+""",
+"prompt": cp.config,
+"clear_screen": False,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Now set the source interface to lo0
+
+tacacs-server host 1.1.1.1
+tacacs-server timeout 10
+tacacs-server key cisco123
+
+""",
+"answer" : """tacacs-server host 1.1.1.1
+tacacs-server timeout 10
+tacacs-server key cisco123""",
+"prompt": cp.config,
+"clear_screen": False,
+"suppress_positive_affirmation": False
+}
 ]
