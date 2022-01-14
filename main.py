@@ -35,6 +35,7 @@ modules = [
     #Layer 3
     layer_3.eigrp.questions,
     layer_3.ospf.questions,
+    layer_3.ospf.questions_2,
     layer_3.redistribution.questions,
     layer_3.pbr.questions,
     layer_3.vrf_lite.questions,
@@ -67,8 +68,13 @@ modules = [
 
 system('cls')
 
-# TEMP: start off with BGP module
-r = random.randint(5, 9)
+# TEMP: start off with OSPF/EIGRP module
+r = random.randint(0, 2)
+ask_questions(modules[r])
+clear_screen_slowly(wait=2)
+
+# TEMP: follow up with BGP module
+r = random.randint(6, 10)
 ask_questions(modules[r])
 clear_screen_slowly(wait=2)
 

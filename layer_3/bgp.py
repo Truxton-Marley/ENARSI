@@ -182,17 +182,6 @@ R1(config)#router bgp 42
 },
 {
 "question" : """
-Set peer 2.2.2.2 to be a RR client.
-
-R1(config)#router bgp 42
-""",
-"answer" : "neighbor 2.2.2.2 route-reflector-client",
-"prompt": cp.config_router,
-"clear_screen": True,
-"suppress_positive_affirmation": False
-},
-{
-"question" : """
 Enable BGP synchronization. Use the short form of the command "synch".
 
 This is a bad idea. It means an iBGP route will only be advertised to an
@@ -202,19 +191,6 @@ R1(config)router bgp 42
 """,
 "answer" : "synch",
 "prompt": cp.config_router,
-"clear_screen": True,
-"suppress_positive_affirmation": False
-},
-{
-"question" : """
-Enable BGP to send communties to peer 2.2.2.2
-
-R1(config)#router bgp 42
-R1(config-router)#address-family ipv4
-R1(config-router-af)#
-""",
-"answer" : "neighbor 2.2.2.2 send-community",
-"prompt": cp.config_router_af,
 "clear_screen": True,
 "suppress_positive_affirmation": False
 },
@@ -446,21 +422,21 @@ Directly Connected Confederation AS Peer: 65024
 "answer" : "router bgp 65042",
 "prompt": cp.config,
 "clear_screen": True,
-"suppress_positive_affirmation": False
+"suppress_positive_affirmation": True
 },
 {
 "question" : "",
 "answer" : "bgp confederation identifier 42",
 "prompt": cp.config_router,
-"clear_screen": True,
-"suppress_positive_affirmation": False
+"clear_screen": False,
+"suppress_positive_affirmation": True
 },
 {
 "question" : "",
 "answer" : "bgp confederation peers 65024",
 "prompt": cp.config_router,
-"clear_screen": True,
-"suppress_positive_affirmation": False
+"clear_screen": False,
+"suppress_positive_affirmation": True
 },
 ]
 
