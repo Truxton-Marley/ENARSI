@@ -37,7 +37,7 @@ R1(config)#router ospf 1
 """,
 "answer" : "ip ospf dead-interval 40",
 "prompt": cp.config_router,
-"clear_screen": False,
+"clear_screen": True,
 },
 {
 "question" : """
@@ -48,7 +48,7 @@ BFD is a better option.
 
 R1(config)#router ospf 1
 """,
-"answer" : "ip ospf dead-interval minimal hello-interval 3",
+"answer" : "ip ospf dead-interval minimal hello-interval 4",
 "prompt": cp.config_router,
 "clear_screen": False,
 },
@@ -60,7 +60,7 @@ R1(config)#router ospf 1
 """,
 "answer" : "passive-interface default",
 "prompt": cp.config_router,
-"clear_screen": False,
+"clear_screen": True,
 },
 {
 "question" : """
@@ -80,6 +80,7 @@ Enable clear-text authentication for area 1.
 
 The password still needs to be set on the interface.
 
+R1(config)#router ospf 1
 """,
 "answer" : "area 1 authentication",
 "prompt": cp.config_router,
@@ -97,7 +98,7 @@ R1(config)#interface gig 0/1
 "answer" : """ip ospf message-digest-key 42 md5 cisco123
 ip ospf authentication message-digest""",
 "prompt": cp.config_router,
-"clear_screen": False,
+"clear_screen": True,
 },
 {
 "question" : """
@@ -150,6 +151,8 @@ R1(config)#interface gig 0/1
 {
 "question" : """
 Set the reference bandwidth to recognize 10 Gbps links
+
+R1(config)#router ospf 1
 """,
 "answer" : "auto-cost reference-bandwidth 10000",
 "prompt": cp.config_router,
@@ -253,20 +256,14 @@ questions_3 = [
 ###        OSPFv3        ###
 ############################
 
-Create a virtual-link over the transit area 24
-On R11 to R22.
-R11 Router-ID: 11.11.11.11
-R22 Router-ID: 22.22.22.22
-
 R11(config)#router ospf 1
 """,
-"answer" : "area 24 virtual-link 22.22.22.22",
-"prompt": "R11(config-router)#",
+"answer" : "",
+"prompt": cp.config,
 "clear_screen": False,
 },
 {
 "question" : """
-And now create the virtual-link on R22
 
 R22(config)#router ospf 1
 """,
