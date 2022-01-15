@@ -443,7 +443,6 @@ Directly Connected Confederation AS Peer: 65024
 questions_5 = [
 {
 "question" : """
-
 ###############################################
 ###             BGP Communities             ###
 ###############################################
@@ -501,7 +500,7 @@ R1(config)#
 Configure the RM to set the No-Advertise Community
 Do not advertise to ANY BGP Peers!
 
-R1(config)route-map my_rm permit 10#
+R1(config)route-map my_rm permit 10
 """,
 "answer" : "set community no-advertise",
 "prompt": cp.config_route_map,
@@ -513,7 +512,7 @@ R1(config)route-map my_rm permit 10#
 Configure the RM to set the No-Export Community
 Do not advertise to any eBGP Peers, but other confed sub-ASs are allowed.
 
-R1(config)route-map my_rm permit 10#
+R1(config)route-map my_rm permit 10
 """,
 "answer" : "set community no-export",
 "prompt": cp.config_route_map,
@@ -525,7 +524,7 @@ R1(config)route-map my_rm permit 10#
 Configure the RM to set the local-as Community
 Do not advertise to any eBGP Peers, but NOT EVEN confed sub-ASs are allowed.
 
-R1(config)route-map my_rm permit 10#
+R1(config)route-map my_rm permit 10
 """,
 "answer" : "set community local-as",
 "prompt": cp.config_route_map,

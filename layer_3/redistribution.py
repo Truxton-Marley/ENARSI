@@ -2,7 +2,6 @@ import common_prompts as cp
 
 questions = [
 {"question" : """
-
 ##############################
 ###     Redistribution     ###
 ##############################
@@ -22,7 +21,6 @@ R1(config)#router eigrp 42
 "clear_screen": False,
 },
 {"question" : """
-
 ######################################
 ##### Route Filtering Exercise 1 #####
 ######################################

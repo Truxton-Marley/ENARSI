@@ -2,6 +2,7 @@ import random
 from os import system
 
 # Section 1: Layer 3 Technologies Imports 35%
+import layer_3.admin_distance
 import layer_3.eigrp
 import layer_3.ospf
 import layer_3.redistribution
@@ -33,10 +34,15 @@ from quiz_tools import clear_screen_slowly
 
 modules = [
     #Layer 3
+    layer_3.admin_distance.questions,
+    layer_3.redistribution.questions,
     layer_3.eigrp.questions,
+    layer_3.eigrp.questions_2,
+    layer_3.eigrp.questions_3,
+    layer_3.eigrp.questions_4,
     layer_3.ospf.questions,
     layer_3.ospf.questions_2,
-    layer_3.redistribution.questions,
+    layer_3.ospf.questions_3,
     layer_3.pbr.questions,
     layer_3.vrf_lite.questions,
     layer_3.bfd.questions,
@@ -69,23 +75,35 @@ modules = [
 system('cls')
 
 # TEMP: start off with OSPF/EIGRP module
-r = random.randint(0, 2)
-ask_questions(modules[r])
+# r = random.randint(3, 8)
+# ask_questions(modules[r])
+# clear_screen_slowly(wait=2)
+
+ask_questions(modules[0])
 clear_screen_slowly(wait=2)
 
-# TEMP: follow up with BGP module
-r = random.randint(6, 10)
-ask_questions(modules[r])
+ask_questions(modules[1])
 clear_screen_slowly(wait=2)
 
-# ask_questions(modules[7])
-# clear_screen_slowly()
+ask_questions(modules[2])
+clear_screen_slowly(wait=2)
 
-# Randomly select three modules
-random_index = random.randint(0, len(modules) - 1)
-ask_questions(modules[random_index])
-random_index = random.randint(0, len(modules) - 1)
-ask_questions(modules[random_index])
+ask_questions(modules[3])
+clear_screen_slowly(wait=2)
+
+# # TEMP: follow up with BGP module
+# r = random.randint(6, 10)
+# ask_questions(modules[r])
+# clear_screen_slowly(wait=2)
+
+# # ask_questions(modules[7])
+# # clear_screen_slowly()
+
+# # Randomly select three modules
+# random_index = random.randint(0, len(modules) - 1)
+# ask_questions(modules[random_index])
+# random_index = random.randint(0, len(modules) - 1)
+# ask_questions(modules[random_index])
 random_index = random.randint(0, len(modules) - 1)
 ask_questions(modules[random_index])
 

@@ -3,7 +3,6 @@ import common_prompts as cp
 questions = [
 {
 "question" : """
-
 #################################
 ###     ACLs w/ Time Range    ###
 #################################
@@ -175,7 +174,6 @@ ip access-group outbound out""",
 ipv6_questions = [
 {
 "question" : """
-
 ########################
 ###     IPv6 ACLs    ###
 ########################

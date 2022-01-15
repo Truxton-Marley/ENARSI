@@ -48,7 +48,7 @@ BFD is a better option.
 
 R1(config)#router ospf 1
 """,
-"answer" : "ip ospf dead-interval minimal hello-interval 4",
+"answer" : "ip ospf dead-interval minimal hello-multiplier 4",
 "prompt": cp.config_router,
 "clear_screen": False,
 },
@@ -163,12 +163,11 @@ R1(config)#router ospf 1
 questions_2 = [
 {
 "question" : """
-
 ########################################
 ###        OSPF Summarization        ###
 ########################################
 
-Summarize the a route 10 1.0.0.0/8 from area 42 into area 0
+Summarize routes to 1.0.0.0/8 from area 42 into area 0
 on an ABR with a cost of 24.
 
 R1(config)#router ospf 1
@@ -179,7 +178,6 @@ R1(config)#router ospf 1
 },
 {
 "question" : """
-
 Summarize external routes to 2.0.0.0/8 on an ASBR.
 
 R1(config)#router ospf 1
@@ -193,10 +191,9 @@ R1(config-router)#redistribute eigrp 66 subnets
 "question" : """
 Configure R1 as an OSPF Stub for area 3.
 
-This will have to be done on every router
-in area 3.
+This will have to be done on every router in area 3.
 
-It will also generate a Type 3 Default Route (O*IA)
+It will also generate a Type 3 Default Route (O*IA).
 
 Type 4 and 5 LSAs will no longer be permitted in area 3.
 
@@ -208,8 +205,7 @@ R1(config)#router ospf 1
 },
 {
 "question" : """
-
-Now change are 3 to a Totally-Stubby area.
+Now change area 3 to a Totally-Stubby area.
 This change will only be made on ABRs.
 
 Type 3, 4, and 5 LSAs will no longer be permitted into area 3.
@@ -251,24 +247,44 @@ R1(config)#router ospf 1
 questions_3 = [
 {
 "question" : """
-
 ############################
 ###        OSPFv3        ###
 ############################
 
-R11(config)#router ospf 1
+Enable OSPFv3 process-id 1 on interface gig 0/3 for IPv6 in area 42.
+
+R11(config)#interface GigabitEthernet 0/3
 """,
-"answer" : "",
+"answer" : "ospfv3 1 ipv6 area 42",
 "prompt": cp.config,
 "clear_screen": False,
 },
 {
 "question" : """
+Set the OSPFv3 Hello-Interval to 10 seconds and the Dead-Interval to 40.
 
-R22(config)#router ospf 1
+Defaults:
+    Broadcast:           10 | 40
+    NBMA:                30 | 120
+    point-to-point:      10 | 40
+    point-to-multipoint: 30 | 120
+
+R22(config)#interface GigabitEthernet 0/3
 """,
-"answer" : "area 24 virtual-link 11.11.11.11",
-"prompt": "R22(config-router)#",
-"clear_screen": False,
+"answer" : """ospfv3 1 hello-interval 10
+ospfv3 1 dead-interval 40""",
+"prompt": cp.config_if,
+"clear_screen": True,
 },
+{
+"question" : """
+Summarize routes to 2001:1:1::/48 on an ABR for area 24.
+
+R1(config)#router ospfv3 1
+R1(config-router)#address-family ipv6 unicast
+""",
+"answer" : """area 24 range 2001:1:1::/48""",
+"prompt": cp.config_router_af,
+"clear_screen": True,
+}
 ]

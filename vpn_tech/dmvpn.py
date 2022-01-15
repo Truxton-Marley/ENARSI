@@ -18,8 +18,10 @@ interface tunnel 42
   ip tcp adjust-mss 1360
   ip nhrp network-id 42
 
+Set NHRP authentication to use the password cisco123
+
 """,
-"answer" : "",
+"answer" : "ip nhrp authentication cisco123",
 "prompt": cp.config,
 "clear_screen": False,
 "suppress_positive_affirmation": False
@@ -30,7 +32,7 @@ Reduce the following commands to one command:
 
 ip nhrp nhs 10.0.0.1
 ip nhrp map 10.0.0.1 1.1.1.1
-ip nrhp map multicast 1.1.1.1
+ip nhrp map multicast 1.1.1.1
 
 """,
 "answer" : "ip nhrp nhs 10.0.0.1 nbma 1.1.1.1 multicast",
@@ -47,7 +49,7 @@ ip nhrp nhs 10.0.0.1 nbma 1.1.1.1 multicast
 """,
 "answer" : """ip nhrp nhs 10.0.0.1
 ip nhrp map 10.0.0.1 1.1.1.1
-ip nrhp map multicast 1.1.1.1""",
+ip nhhp map multicast 1.1.1.1""",
 "prompt": cp.config,
 "clear_screen": True,
 "suppress_positive_affirmation": False

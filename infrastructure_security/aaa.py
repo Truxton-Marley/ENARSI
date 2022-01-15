@@ -103,7 +103,7 @@ tacacs-server key cisco123
 },
 {
 "question" : """
-Now set the source interface to lo0
+Now set the source interface to lo0.
 
 tacacs-server host 1.1.1.1
 tacacs-server timeout 10

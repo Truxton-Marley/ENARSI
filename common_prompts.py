@@ -1,18 +1,22 @@
 user_exec = "R1#"
 priv_exec = "R1#"
+# General
 config = "R1(config)#"
-config_router = "R1(config-router)#"
-config_router_af = "R1(config-router-af)#"
 config_if = "R1(config-if)#"
 config_line = "R1(config-line)#"
 config_route_map = "R1(config-route-map)#"
-###
+# Router
+config_router = "R1(config-router)#"
+config_router_af = "R1(config-router-af)#"
+config_router_af_if ="R1(config-router-af-interface)#"
+config_router_af_topology ="R1(config-router-af-topology)#"
+# VRF
 config_vrf = "R1(config-vrf)#"
-#NETFLOW
+# NETFLOW
 config_nf_rec = "R1(config-flow-record)#"
 config_nf_exp = "R1(config-flow-exporter)#"
 config_nf_mon = "R1(config-flow-monitor)#"
-#ACLs
+# ACLs
 config_time_range = "R1(config-time-range)#"
 config_ext_nacl = "R1(config-ext-nacl)#"
 config_ipv6_acl = "R1(config-ipv6-acl)#"
