@@ -54,8 +54,9 @@ modules = [
     # VPN
     vpn_tech.mpls.questions,
     vpn_tech.dmvpn.questions,
-    # vpn_tech.ipsec.questions,
+    # TODO: vpn_tech.ipsec.questions,
     # Infrastructure Security
+    # TODO: 19 Start testing here
     infrastructure_security.acls.questions,
     infrastructure_security.acls.ipv6_questions,
     infrastructure_security.urpf.questions,
@@ -79,31 +80,20 @@ system('cls')
 # ask_questions(modules[r])
 # clear_screen_slowly(wait=2)
 
-ask_questions(modules[0])
+
+### 0 - 18 have been checked, #TODO: test 19 ...
+ask_questions(modules[19])
 clear_screen_slowly(wait=2)
 
-ask_questions(modules[1])
+ask_questions(modules[20])
 clear_screen_slowly(wait=2)
 
-ask_questions(modules[2])
-clear_screen_slowly(wait=2)
-
-ask_questions(modules[3])
-clear_screen_slowly(wait=2)
 
 # # TEMP: follow up with BGP module
 # r = random.randint(6, 10)
 # ask_questions(modules[r])
 # clear_screen_slowly(wait=2)
 
-# # ask_questions(modules[7])
-# # clear_screen_slowly()
-
-# # Randomly select three modules
-# random_index = random.randint(0, len(modules) - 1)
-# ask_questions(modules[random_index])
-# random_index = random.randint(0, len(modules) - 1)
-# ask_questions(modules[random_index])
 random_index = random.randint(0, len(modules) - 1)
 ask_questions(modules[random_index])
 

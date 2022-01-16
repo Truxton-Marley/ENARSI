@@ -49,7 +49,7 @@ ip nhrp nhs 10.0.0.1 nbma 1.1.1.1 multicast
 """,
 "answer" : """ip nhrp nhs 10.0.0.1
 ip nhrp map 10.0.0.1 1.1.1.1
-ip nhhp map multicast 1.1.1.1""",
+ip nhrp map multicast 1.1.1.1""",
 "prompt": cp.config,
 "clear_screen": True,
 "suppress_positive_affirmation": False

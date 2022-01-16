@@ -115,14 +115,14 @@ The password still needs to be set on the interface.
 "question" : """
 Enable HMAC-SHA authentication on interface gig 0/1
 
-R1(config)#key chain MY-KEY
+R1(config)#key chain ciscokc
 R1(config-keychain)#key 42
 R1(config-keychain-key)#key-string cisco123
 R1(config-keychain-key)#cryptographic-algorithm hmac-sha-256
 !
 R1(config)#interface gig 0/1
 """,
-"answer" : """ip ospf authentication key-chain MY-KEY""",
+"answer" : """ip ospf authentication key-chain ciscokc""",
 "prompt": cp.config_router,
 "clear_screen": True,
 },

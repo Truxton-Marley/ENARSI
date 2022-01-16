@@ -37,7 +37,6 @@ ip authentication mode eigrp 42 md5""",
 },
 {
 "question" : """
-
 Set the hello timer to 5 seconds for interface gig 0/0/1.
 Set the hold timer to 15 seconds.
 R1#
@@ -72,9 +71,7 @@ Manually set the metric with the following parameters: 1000 10 255 1 1500
 
 R1(config)#interface gig 0/3
 """,
-"answer" : """ip summary-address eigrp 42 1.0.0.0/16 leak-map lm
-summary-metric 1.0.0.0/16 distance 5
-summary-metric 1.0.0.0/16 1000 10 255 1 1500""",
+"answer" : """ip summary-address eigrp 42 1.0.0.0/16 leak-map lm""",
 "prompt": cp.config_if,
 "clear_screen": True,
 "suppress_positive_affirmation": True
@@ -84,7 +81,7 @@ summary-metric 1.0.0.0/16 1000 10 255 1 1500""",
 """,
 "answer" : """summary-metric 1.0.0.0/16 distance 5
 summary-metric 1.0.0.0/16 1000 10 255 1 1500""",
-"prompt": cp.config_router_router,
+"prompt": cp.config_router,
 "clear_screen": False,
 "suppress_positive_affirmation": False
 },
@@ -150,7 +147,6 @@ R1(config-router)#
 },
 {
 "question" : """
-
 Let's check out some show commands.
 
 View EIGRP neighbors
@@ -161,7 +157,7 @@ R1#
 "prompt": cp.priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
-"post_task_output": """EIGRP-IPv4 Neighbors for AS(100)
+"post_task_output": """EIGRP-IPv4 Neighbors for AS(42)
 H   Address                 Interface              Hold Uptime   SRTT   RTO  Q  Seq
                                                    (sec)         (ms)       Cnt Num
 1   192.1.0.5               Tu0                      12 00:03:51  205  2097  0  15
@@ -213,7 +209,6 @@ Gi0/1                    2        0/0       0/0         507       0/0         24
 },
 {
 "question" : """
-
 View the EIGRP Topology tables.
 
 R1#
@@ -312,7 +307,7 @@ R1(config)#router eigrp PINECONE
 R1(config-router)#address-family ipv4 unicast autonomous-system 42
 R1(config-router-af)#af-interface default
 """,
-"answer" : """authentication key-chain eigrp ciscokc
+"answer" : """authentication key-chain ciscokc
 authentication mode md5""",
 "prompt": cp.config_router_af_if,
 "clear_screen": False,
@@ -337,7 +332,8 @@ Enable the IPv6 address family for AS 6.
 
 ACHTUNG! ACHTUNG! This will enable EIGRP on all IPv6 enabled interfaces!!!
 
-R1(config)#router eigrp NAMED""",
+R1(config)#router eigrp NAMED
+""",
 "answer" : """address-family ipv6 unicast autonomous-system 6""",
 "prompt": cp.config_router,
 "clear_screen": True,
@@ -345,6 +341,8 @@ R1(config)#router eigrp NAMED""",
 },
 {"question" : """
 Summarize routes to 1.0.0.0/16 on interface gig 0/3 and include a leak-map, lm.
+Manually set the AD to 5.
+Manually set the metric with the following parameters: 1000 10 255 1 1500
 
 R1(config)#router eigrp PINECONE
 R1(config-router)#address-family ipv4 unicast autonomous-system 42
@@ -365,7 +363,7 @@ summary-metric 1.0.0.0/16 1000 10 255 1 1500""",
 "suppress_positive_affirmation": False
 },
 {"question" : """
-Set the SIA Timer.
+Set the SIA Timer to five minutes.
 
 R1(config)#router eigrp PINECONE
 R1(config-router)#address-family ipv4 unicast autonomous-system 42
@@ -386,10 +384,11 @@ vrf definition bunny
  address-family ipv4
  exit-address-family
 !
-R1(config)#router eigrp NAMED""",
+R1(config)#router eigrp NAMED
+""",
 "answer" : """address-family ipv4 vrf bunny autonomous-system 66""",
 "prompt": cp.config_router,
-"clear_screen": False,
+"clear_screen": True,
 "suppress_positive_affirmation": False
 },
 {

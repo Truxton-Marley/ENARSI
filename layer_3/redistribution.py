@@ -25,9 +25,9 @@ R1(config)#router eigrp 42
 ##### Route Filtering Exercise 1 #####
 ######################################
 
-Let's do some route filtering with a route-map
+Let's do some route filtering with a route-map.
 
-First create ACL 1 to match 192.168/16
+First create ACL 1 to match 192.168/16.
 
 """,
 "answer" : "access-list 1 permit 192.168.0.0 0.0.255.255",

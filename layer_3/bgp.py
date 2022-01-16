@@ -3,7 +3,6 @@ import common_prompts as cp
 questions = [
 {
 "question" : """
-
 ######################
 ###       BGP      ###
 ######################
@@ -86,6 +85,7 @@ R1(config)#router bgp 42
 {
 "question" : """
 Set BGP to use asdot notation for 4-bytes AS numbers.
+
 """,
 "answer" : "bgp asnotation dot",
 "prompt": cp.config_router,
@@ -150,6 +150,7 @@ R1(config)#router bgp 42
 {
 "question" : """
 Have the router resend all BGP info to 2.2.2.2 without resetting the connections.
+
 """,
 "answer" : "clear ip bgp 2.2.2.2 soft out",
 "prompt": cp.priv_exec,
@@ -197,6 +198,7 @@ R1(config)router bgp 42
 {
 "question" : """
 View the BGP IPv4 Unicast Loc-RIB:
+
 """,
 "answer" : "show bgp ipv4 unicast",
 "prompt": cp.priv_exec,
@@ -211,16 +213,16 @@ Origin codes: i - IGP, e - EGP, ? - incomplete
 RPKI validation codes: V valid, I invalid, N Not found
 
      Network          Next Hop            Metric LocPrf Weight Path
- *    10.16.0.0/16     60.60.60.2                             0 64860 64616 i
- *>                    16.16.16.2               0             0 64616 i
- *>   10.18.0.0/16     0.0.0.0                  0         32768 ?
+ *    10.15.0.0/16     50.50.50.2                             0 64860 64616 i
+ *>                    15.15.15.2               0             0 64616 i
+ *>   10.13.0.0/16     0.0.0.0                  0         32768 ?
  *>   10.19.0.0/16     0.0.0.0                  0         32768 ?
  *>   10.20.0.0/16     0.0.0.0                  0         32768 ?
- *>   10.21.0.0/16     0.0.0.0                  0         32768 ?
- *>   10.60.0.0/16     60.60.60.2               0             0 64860 i
- *>   172.16.5.0/24    0.0.0.0                  0         32768 ?
- *>   172.16.10.0/24   0.0.0.0                  0         32768 ?
- *>   172.17.0.0       10.1.1.2                               0 65501 65515 i
+ *>   10.23.0.0/16     0.0.0.0                  0         32768 ?
+ *>   10.70.0.0/16     60.60.60.2               0             0 64860 i
+ *>   172.26.5.0/24    0.0.0.0                  0         32768 ?
+ *>   172.26.10.0/24   0.0.0.0                  0         32768 ?
+ *>   172.27.0.0       10.1.1.2                               0 65501 65515 i
  *>   192.168.1.0      10.1.1.2                               0 65501 64950 i
  *>   192.168.20.0     0.0.0.0                  0         32768 ?
  *>   192.168.100.0    10.1.1.2                               0 65501 64950 i
@@ -261,7 +263,6 @@ RPKI validation codes: V valid, I invalid, N Not found
 questions_2 = [
 {
 "question" : """
-
 ###############################################
 ###       BGP Peer Groups and Templates     ###
 ###############################################
@@ -299,6 +300,7 @@ let's us it for our peer at 24.24.24.24
 neighbor local peer-group
 neighbor local remote-as 42
 neighbor local update-source lo0
+neighbor local next-hop-self
 !
 R1(config)router bgp 42
 """,
@@ -312,7 +314,6 @@ R1(config)router bgp 42
 questions_3 = [
 {
 "question" : """
-
 #######################################################
 ###           BGP AS-Paths and Filtering            ###
 #######################################################
@@ -391,7 +392,6 @@ R1(config)#router bgp 42
 questions_4 = [
 {
 "question" : """
-
 ###############################################
 ###           BGP Confederations            ###
 ###############################################
