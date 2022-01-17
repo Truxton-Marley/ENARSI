@@ -56,7 +56,6 @@ modules = [
     vpn_tech.dmvpn.questions,
     # TODO: vpn_tech.ipsec.questions,
     # Infrastructure Security
-    # TODO: 19 Start testing here
     infrastructure_security.acls.questions,
     infrastructure_security.acls.ipv6_questions,
     infrastructure_security.urpf.questions,
@@ -75,26 +74,19 @@ modules = [
 
 system('cls')
 
-# TEMP: start off with OSPF/EIGRP module
-# r = random.randint(3, 8)
-# ask_questions(modules[r])
-# clear_screen_slowly(wait=2)
-
-
-### 0 - 18 have been checked, #TODO: test 19 ...
-ask_questions(modules[19])
+random_index = random.randint(0, len(modules) - 1)
+ask_questions(modules[random_index])
 clear_screen_slowly(wait=2)
-
-ask_questions(modules[20])
-clear_screen_slowly(wait=2)
-
-
-# # TEMP: follow up with BGP module
-# r = random.randint(6, 10)
-# ask_questions(modules[r])
-# clear_screen_slowly(wait=2)
 
 random_index = random.randint(0, len(modules) - 1)
 ask_questions(modules[random_index])
 
 print("\nThat's it for now. Updates to follow.\n")
+
+
+# TODO: CoPP show output
+# TODO: EIGRP show ip eigrp topology output
+# TODO: IPSEC, IKEv1 and IKEv2
+# TODO: OSPFv3 authorization and OSPF filter-list
+# TODO: expand redistribution
+# TODO: expand MPLS

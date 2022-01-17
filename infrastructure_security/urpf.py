@@ -3,7 +3,6 @@ import common_prompts as cp
 #uRPF
 questions = [
 {"question" : """
-
 ####################
 ###     uRPF     ###
 ####################
@@ -27,7 +26,6 @@ Configure uRPF in Loose Mode on an interface and permit the default:
 },
 {
 "question" : """
-
 Nice piece of work getting that uRPF going.
 But how would we verify it?
 Let's first check stastics on ip traffic.

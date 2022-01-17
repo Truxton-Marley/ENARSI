@@ -3,30 +3,28 @@ import common_prompts as cp
 questions = [
 {
 "question" : """
-
 ####################
 ###     DHCP     ###
 ####################
 
-Create an off box DHCP Database to store DHCP bindings
-in case of device reboot.
+Create an off box DHCP Database (FTP@1.1.1.1) to store DHCP bindings
+in case of device reboot. 
 
 """,
-"answer" : "ip dhcp database ftp://admin:cisco@1.1.1.1",
+"answer" : "ip dhcp database ftp://admin:cisco123@1.1.1.1",
 "prompt": cp.config,
 "clear_screen": False,
 "suppress_positive_affirmation": False
 },
 {
 "question" : """
-
 Let's now look at DHCPv6.
 First we will configure an IOS device to act
 as a Stateless DHCPv6 Server.
 
 Name the pool slaac.
 Set the domain name to acme.com
-set the dns-server t0 2001::42
+Set the dns-server to 2001::42
 
 R1(config)#
 """,
@@ -45,7 +43,6 @@ dns-server 2001::42""",
 },
 {
 "question" : """
-
 Let's now apply the config to int gig 0/1:
   First set the interface to tell devices to use SLAAC.
   Then set the interface to use our "slaac" DHCPv6 pool.
@@ -66,7 +63,6 @@ ipv6 dhcp server slaac""",
 },
 {
 "question" : """
-
 Moving on to STATEFUL DHCPv6:
 
 Name the pool stateful.
@@ -88,7 +84,6 @@ R1(config)#
 },
 {
 "question" : """
-
 Let's now apply the config to int gig 0/1:
   First set the interface to tell devices to use STATEFUL DHCPv6.
   Then set the interface to use our "stateful" DHCPv6 pool.
@@ -110,7 +105,6 @@ ipv6 dhcp server stateful""",
 },
 {
 "question" : """
-
 Good job, now let's configure a client
 to use SLAAC and install a dynamic default
 route.
@@ -123,4 +117,3 @@ R1(config)interface gig 0/0/2
 "suppress_positive_affirmation": False
 }
 ]
-#"post_task_output": """"""

@@ -17,6 +17,7 @@ interface tunnel 42
   ip mtu 1400
   ip tcp adjust-mss 1360
   ip nhrp network-id 42
+  ip nhrp map multicast dynamic
 
 Set NHRP authentication to use the password cisco123
 
@@ -68,6 +69,7 @@ interface tunnel 42
   ip mtu 1400
   ip tcp adjust-mss 1360
   ip nhrp network-id 42
+  ip nhrp map multicast dynamic
 
 """,
 "answer" : "ip nhrp redirect",

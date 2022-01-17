@@ -3,7 +3,6 @@ import common_prompts as cp
 questions = [
 {
 "question" : """
-
 ######################
 ###     IP SLA     ###
 ######################
@@ -24,7 +23,7 @@ R1#show ip sla statistics
 "answer" : "ip sla 42",
 "prompt": cp.config,
 "clear_screen": False,
-"suppress_positive_affirmation": False
+"suppress_positive_affirmation": True
 },
 {
 "question" : "",
@@ -43,7 +42,7 @@ R1#show ip sla statistics
 {
 "question" : """
 That was a basic IP SLA.
-Let's schedule it to run forever now.
+Let's schedule it to run forever now and start now.
 
 R1(config)#ip sla 42
 R1(config-ip-sla)#icmp-echo 42.42.42.42
@@ -68,7 +67,7 @@ g711ulaw and a frequency of 10.
 """,
 "answer" : "ip sla 66",
 "prompt": "R1(config)#",
-"clear_screen": False,
+"clear_screen": True,
 "suppress_positive_affirmation": True
 },
 {
@@ -104,12 +103,24 @@ R2(config)#
 },
 {
 "question" : """
+We can also test TCP. Let's test TCP connections to 66.66.66.66:17000
 
+R2(config)#ip sla 66
+""",
+"answer" : "tcp-connect 66.66.66.66 17000 source-ip 33.33.33.33 source-port 33333",
+"prompt": "R2(config)",
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
 Create Track Object 1 and attach IP SLA 42 to check reachability.
+
+R1(config)#
 """,
 "answer" : "track 1 ip sla 42 reachability",
 "prompt": cp.config,
-"clear_screen": False,
+"clear_screen": True,
 "suppress_positive_affirmation": False
 },
 {
@@ -122,4 +133,3 @@ Attach Track Object 1 to the default route to 1.1.1.1
 "suppress_positive_affirmation": False
 },
 ]
-#"post_task_output": """"""

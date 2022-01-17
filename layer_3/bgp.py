@@ -368,7 +368,8 @@ R1(config-router-af)#
 },
 {
 "question" : """
-Create AS Path ACL 1 to match all internally learned routes
+Create AS Path ACL 1 to match all internally learned routes.
+
 """,
 "answer" : "ip as-path access-list 1 permit ^$",
 "prompt": cp.config,

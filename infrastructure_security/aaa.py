@@ -27,7 +27,6 @@ key cisco123""",
 },
 {
 "question" : """
-
 Now that we have our TACACS+ server, TAC1, let's
 add it to the AAA server group TG
 
@@ -51,7 +50,6 @@ R1(config)#
 },
 {
 "question" : """
-
 Now let's create a default method list for login using
 our TACACS+ server group TG with a backup of the local
 database.
@@ -76,8 +74,8 @@ R1(config)#
 {
 "question" : """
 To get us to the '#' prompt, we can set up a default
-authorization methodlist. This would work without the
-previous authentication methodlist as well.
+authorization method-list. This would work without the
+previous authentication method-list as well.
 
 """,
 "answer" : "aaa authorization exec default group TG local",
@@ -90,31 +88,30 @@ previous authentication methodlist as well.
 We can also use older syntax and create an unnamed TACACS+ Server.
 Use destination 1.1.1.1
 Timeout 10
-Key Cisco123
-
-""",
-"answer" : """tacacs-server host 1.1.1.1
-tacacs-server timeout 10
-tacacs-server key cisco123
-""",
-"prompt": cp.config,
-"clear_screen": False,
-"suppress_positive_affirmation": False
-},
-{
-"question" : """
-Now set the source interface to lo0.
-
-tacacs-server host 1.1.1.1
-tacacs-server timeout 10
-tacacs-server key cisco123
+Key cisco123
 
 """,
 "answer" : """tacacs-server host 1.1.1.1
 tacacs-server timeout 10
 tacacs-server key cisco123""",
 "prompt": cp.config,
-"clear_screen": False,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Now set the source interface to lo0.
+
+R1(config )# do show run | in tacacs-server
+tacacs-server host 1.1.1.1
+tacacs-server timeout 10
+tacacs-server key cisco123
+!
+R1(config)#
+""",
+"answer" : "ip tacacs source-interface lo0",
+"prompt": cp.config,
+"clear_screen": True,
 "suppress_positive_affirmation": False
 }
 ]

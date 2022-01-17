@@ -3,7 +3,6 @@ import common_prompts as cp
 questions = [
 {
 "question" : """
-
 #######################################
 ###     IPv6 First Hop Security     ###
 #######################################
@@ -27,7 +26,6 @@ Assign the role to server.
 },
 {
 "question" : """
-
 Now that we have the DHCPv6 Guard Policy configured,
 we will need to apply it to our DHCP server facing
 interfaces.

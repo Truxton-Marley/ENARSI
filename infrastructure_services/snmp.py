@@ -3,7 +3,6 @@ import common_prompts as cp
 questions = [
 {
 "question" : """
-
 ####################
 ###     SNMP     ###
 ####################

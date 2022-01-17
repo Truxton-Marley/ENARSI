@@ -49,8 +49,7 @@ R1(config)#ip access-list extended feierabend
 },
 {
 "question" : """
-
-Once again, you pulled through and suppled the config we needed!!!
+Once again, you pulled through and supplied the config we needed!!!
 Mario is proud and Princess Peach can reach the WWW in her free time.
 
 Let's have a look at our work. Show all the configured ACLs.
@@ -67,7 +66,6 @@ Extended IP access list feierabend
 },
 {
 "question" : """
-
 #############################
 ###     Reflexive ACLs    ###
 #############################
@@ -139,35 +137,7 @@ ip access-group outbound out""",
 "prompt": cp.config_if,
 "clear_screen": True,
 "suppress_positive_affirmation": False
-},
-# {
-# "question" : """
-
-# """,
-# "answer" : "show ip access-lists",
-# "prompt": cp.config,
-# "clear_screen": True,
-# "post_task_output": """
-
-# R1#show ip access-lists
-# Extended IP access list feierabend
-#     10 permit ip any any time-range feierabend (active)
-# Extended IP access list inbound
-#     10 permit icmp any any (35 matches)
-#     20 permit ospf any any (19 matches)
-#     30 permit eigrp any any
-#     50 evaluate tcptraffic
-#     60 deny ip any any (24 matches)
-# Extended IP access list outbound
-#     10 permit icmp any any (5 matches)
-#     20 permit ospf any any
-#     30 permit eigrp any any
-#     40 permit tcp any any reflect tcptraffic (91 matches)
-# Reflexive IP access list tcptraffic
-# 
-# """,
-# "suppress_positive_affirmation": False
-# },
+}
 ]
 
 

@@ -4,9 +4,9 @@ import common_prompts as cp
 classic_netflow_questions = [
 {
 "question" : """
-#######################
-###     NetFlow     ###
-#######################
+#################################
+###     Classical NetFlow     ###
+#################################
 
 We are going to get it started by setting the flow-export
 to version 5.
@@ -56,7 +56,7 @@ R1(config-if)#end
 R1#
 """,
 "answer" : "show ip cache flow",
-"prompt": cp.user_exec,
+"prompt": cp.priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """pinecone#show ip cache flow
@@ -82,9 +82,8 @@ Protocol         Total    Flows   Packets Bytes  Packets Active(Sec) Idle(Sec)
 UDP-other            9      0.0         2   161      0.0       1.0      15.2
 Total:               9      0.0         2   161      0.0       1.0      15.2
 """
-},
+}
 ]
-#"post_task_output": """"""
 
 flexible_netflow_questions = [
 {"question" : """
@@ -98,7 +97,8 @@ Create a flow RECORD named rec1
 "prompt": cp.config,
 "clear_screen": False
 },
-{"question" : """
+{
+"question" : """
 Now match on the protocol as well:
 
 R1(config)#flow record rec1
@@ -109,8 +109,9 @@ R1(config-flow-record)#match ipv4 destination address
 "prompt": cp.config_nf_rec,
 "clear_screen": True
 },
-{"question" : """
-Good job, our config so far
+{
+"question" : """
+Good job, our config so far:
 
 flow record rec1
   match ipv4 source address
@@ -119,14 +120,15 @@ flow record rec1
   match transport source-port
   match transport destination-port
 
-Let's collect info on the number of bytes
+Let's collect info on the number of bytes.
 
 """,
 "answer" : "collect counter bytes",
 "prompt": cp.config_nf_rec,
 "clear_screen": True
 },
-{"question" : """
+{
+"question" : """
 
 flow record rec1
   match ipv4 source address
@@ -143,8 +145,8 @@ How about collecting info on the number of packets as well?
 "prompt": cp.config_nf_rec,
 "clear_screen": False
 },
-{"question" : """
-
+{
+"question" : """
 Sehr gut! Now it's time to make a flow exporter.
 
 Name it exp1.
@@ -157,15 +159,16 @@ And, finally, use udp 2055
 "clear_screen": True,
 "suppress_positive_affirmation": True
 },
-{"question" : "",
+{
+"question" : "",
 "answer" : """destination 1.1.1.1
 source gig 0/1
 transport udp 2055""",
 "prompt": cp.config_nf_exp,
 "clear_screen": False
 },
-{"question" : """
-
+{
+"question" : """
 Let's look at what we have so far! A Record and an Exporter.
 
 flow record rec1
@@ -194,15 +197,16 @@ and the record to "rec1".
 "clear_screen": True,
 "suppress_positive_affirmation": True
 },
-{"question" : "",
+{
+"question" : "",
 "answer" : """exporter exp1
 record rec1""",
 "prompt": cp.config_nf_mon,
 "clear_screen": False,
 "suppress_positive_affirmation": True
 },
-{"question" : """
-
+{
+"question" : """
 That's the REM of our Flexible NetFlow config.
 Time to put it to use.
 
@@ -235,5 +239,5 @@ R1(config)#interface gig 0/0
 ip flow monitor mon1 out""",
 "prompt": cp.config_if,
 "clear_screen": True
-},
+}
 ]
