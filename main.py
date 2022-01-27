@@ -27,12 +27,15 @@ import infrastructure_services.logging
 import infrastructure_services.dhcp
 import infrastructure_services.ip_sla
 import infrastructure_services.netflow
+# Beyond ENARSI
+import beyond_enarsi.beyond_enarsi
 
 
 from quiz_tools import ask_questions
 from quiz_tools import clear_screen_slowly
 
 modules = [
+    beyond_enarsi.beyond_enarsi.questions_ppp,
     #Layer 3
     layer_3.admin_distance.questions,
     layer_3.redistribution.questions,
@@ -51,6 +54,7 @@ modules = [
     layer_3.bgp.questions_3,
     layer_3.bgp.questions_4,
     layer_3.bgp.questions_5,
+    layer_3.bgp.questions_6,
     # VPN
     vpn_tech.mpls.questions,
     vpn_tech.dmvpn.questions,
@@ -73,6 +77,12 @@ modules = [
 ]
 
 system('cls')
+
+ask_questions(modules[0])
+clear_screen_slowly(wait=2)
+
+# ask_questions(modules[17])
+# clear_screen_slowly(wait=2)
 
 random_index = random.randint(0, len(modules) - 1)
 ask_questions(modules[random_index])

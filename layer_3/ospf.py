@@ -3,7 +3,6 @@ import common_prompts as cp
 questions = [
 {
 "question" : """
-
 ############################
 ###        OSPFv2        ###
 ############################
@@ -64,8 +63,8 @@ R1(config)#router ospf 1
 },
 {
 "question" : """
-Set the password and enable clear-text authentication for OSPf
-on interface gig 0/1
+Set the password and enable clear-text authentication
+for OSPF on interface gig 0/1.
 
 R1(config)interface gig 0/1
 """,

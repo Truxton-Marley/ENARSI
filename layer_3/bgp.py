@@ -1,3 +1,8 @@
+from email.errors import InvalidBase64PaddingDefect
+from msilib.schema import Media
+from pathlib import Path
+from turtle import window_height
+from typing import OrderedDict, Type
 import common_prompts as cp
 
 questions = [
@@ -555,3 +560,56 @@ R1(config)#
 "suppress_positive_affirmation": False
 },
 ]
+
+questions_6 = [
+{
+"question" : """
+####################################
+###       BGP Path Selection     ###
+####################################
+
+BGP Selection Order:
+
+1) Highest weight
+2) Highest Local Preference
+3) Locally originated over Externally originated
+4) Shortest AS Path
+5) Lowest Origin Type
+6) Lowest Med
+7) eBGP over iBGP
+8) Lowest BGP Router-ID
+
+BGP weight only applies to the what?
+""",
+"answer" : "local Router",
+"prompt": ">  ",
+"clear_screen": False,
+"suppress_positive_affirmation": True
+},
+{
+"question" : """
+BGP Selection Order:
+
+1) Highest weight
+2) Highest Local Preference
+3) Locally originated over Externally originated
+4) Shortest AS Path
+5) Lowest Origin Type
+6) Lowest Med
+7) eBGP over iBGP
+8) Lowest BGP Router-ID
+
+AS-Path prepending can influence both incoming and outgoing routes.
+
+Which command is used for AS-Path prepending? Prepend 42 to the AS-PATH 3 times.
+
+R1(config)#route-map INCREASE_LOCAL_AS permit 20
+""",
+"answer" : "set as-path prepend 42 42 42",
+"prompt": cp.config_route_map,
+"clear_screen": False,
+"suppress_positive_affirmation": True
+},
+]
+
+

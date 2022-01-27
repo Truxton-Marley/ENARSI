@@ -7,6 +7,10 @@ questions = [
 ###       DMVPN      ###
 ########################
 
+GRE - RFC 2784
+    - IP 47
+    - At least 24 Bytes extra overhead
+
 Phase I and II Hub:
 interface tunnel 42
   bandwidth 100000

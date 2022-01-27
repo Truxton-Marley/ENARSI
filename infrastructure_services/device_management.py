@@ -23,7 +23,7 @@ Set up R1 to be a TFTP Server for the file newimage.bin located in its flash.
 
 R1(config)#
 """,
-"answer" : "tftp-server:newimage.bin",
+"answer" : "tftp-server flash:newimage.bin",
 "prompt": cp.config,
 "clear_screen": True,
 "suppress_positive_affirmation": False

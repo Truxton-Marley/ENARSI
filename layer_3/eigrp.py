@@ -87,7 +87,7 @@ summary-metric 1.0.0.0/16 1000 10 255 1 1500""",
 },
 {
 "question" : """
-Set router to be an EIGRP stub with the default parameters, conneccted and summary.
+Set router to be an EIGRP stub with the default parameters, connected and summary.
 
 eigrp stub [connected | receive-only | redistributed | static | summary]
 

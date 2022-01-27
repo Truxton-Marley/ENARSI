@@ -126,3 +126,7 @@ TODO: add output here
 },
 ]
 #"post_task_output": """"""
+
+# Single-rate, dual-bucket, three-color policier
+# police 10000 4000 6000 conform-action transmit exceed-action transmit violate-actioin drop
+

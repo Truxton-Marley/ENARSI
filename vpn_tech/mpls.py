@@ -7,6 +7,10 @@ questions = [
 ###      MPLS      ###
 ######################
 
+L2:
+    VPWS - Virtual Private Wire Service, Point-to-Point
+    VPLS - Virtual Private Lan Service, Multipoint-to-Multipoing
+
 Create a vrf, lila, and set the
 RD to 101:100
 Route-target import to 101:42
@@ -55,6 +59,16 @@ end
 """,
 "answer" : "show run vrf",
 "prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Set MPLS to use explicit null labels for directly connected routes.
+
+""",
+"answer" : "mpls ldp explicit-null",
+"prompt": cp.config,
 "clear_screen": True,
 "suppress_positive_affirmation": False
 },

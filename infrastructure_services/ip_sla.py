@@ -104,6 +104,7 @@ R2(config)#
 {
 "question" : """
 We can also test TCP. Let's test TCP connections to 66.66.66.66:17000
+with source IP 33.33.33.33 and source port 33333
 
 R2(config)#ip sla 66
 """,
