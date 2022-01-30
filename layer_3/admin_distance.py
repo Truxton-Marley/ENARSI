@@ -18,7 +18,10 @@ questions = [
 120 RIP
 170 EIGRP External
 200 iBGP
-
+---
+distance <new_AD> <source-address> <wildcard-mask> [ACL]
+    * Only works on EIGRP internal, not External routes
+    * For OSPF, source-address == Router-ID
 ###
 
 Let's set the distance for EIGRP, Internal: 90, External: 170

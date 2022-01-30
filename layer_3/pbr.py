@@ -7,6 +7,17 @@ questions = [
 ###     PBR     ###
 ###################
 
+PBR can match on ip address or length.
+set:
+  set ip next-hop x.x.x.x
+  set interface...
+  set ip default next-hop x.x.x.x
+  set default interface...
+Verify:
+  show ip policy
+  debug ip policy
+______________________________________
+
 Create a route-map named PBR to match ACL 110
 set the next-hop to be 22.22.22.22.
 
@@ -57,6 +68,21 @@ route-map PBR permit 10
 R1(config)#
 """,
 "answer" : "ip local policy route-map PBR",
+"prompt": cp.config,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Using the "set ip default next-hop" enables us to only use the PBR next-hop
+if there is no route in the RIB for the network.
+
+Set the next-hop to 22.22.22.22 only for when their is no RIB entry.
+!
+R1(config)#route-map PBR permit 10
+R1(config-route-map)# match ip address 110
+""",
+"answer" : "set ip default next-hop 22.22.22.22",
 "prompt": cp.config,
 "clear_screen": True,
 "suppress_positive_affirmation": False

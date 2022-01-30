@@ -7,6 +7,19 @@ questions = [
 ###     AAA     ###
 ###################
 
+Radius -
+    Uses port 1812 and 1813 OR 1645 and 1646
+    Does not encrypt the entire message, just the password
+    Access-Request, Access-Accept, Access-Reject
+!
+radius server RAD1
+ address ipv4 1.1.1.1 auth-port 1812 acct-port 1813
+ key cisco123
+
+Tacacs+ -
+    Uses TCP 49
+    Encrypts the entire message
+
 Configure a TACACS+ server named TAC1.
 It is located at 1.1.1.1 and uses the key
 cisco123.

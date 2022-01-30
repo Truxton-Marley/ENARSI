@@ -7,6 +7,8 @@ questions = [
 ###     IP SLA     ###
 ######################
 
+
+
 Create a basic ICMP-ECHO IP SLA (42).
 Destination address 42.42.42.42
 Send it every 10 seconds.
@@ -42,6 +44,12 @@ R1#show ip sla statistics
 {
 "question" : """
 That was a basic IP SLA.
+
+The default run-time for an IP SLA is one hour.
+ip sla schedule operation-number [life {forever | seconds}] [start-time {hh:mm [:ss]
+                                 [month day | day month] | pending | now | after hh:mm:ss}]
+                                 [ageout seconds]
+
 Let's schedule it to run forever now and start now.
 
 R1(config)#ip sla 42

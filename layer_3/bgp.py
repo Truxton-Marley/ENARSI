@@ -1,9 +1,25 @@
-from email.errors import InvalidBase64PaddingDefect
-from msilib.schema import Media
-from pathlib import Path
-from turtle import window_height
-from typing import OrderedDict, Type
 import common_prompts as cp
+
+#1 General
+#2 Peer-Groups and Templates
+#3 AS-Paths and Filtering
+#4 Confederations and Router-Reflectors
+
+{
+"question" : """
+
+auto-summary
+
+network 10.0.0.0   <---any classful network statement ->
+  Looks for any component network and then injects the classful network into the routing table
+
+R1(config)#
+""",
+"answer" : "",
+"prompt": cp.config_router,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
 
 questions = [
 {
@@ -11,6 +27,19 @@ questions = [
 ######################
 ###       BGP      ###
 ######################
+
+Good CiscoLive: BRKCCIE-3000
+  check out RouteViews.org too
+
+First RFC 1105
+BGP 4  - RFC 1654, 1994, added CIDR support
+MP-BGP - RFC 2283, 1998
+
+neighbor 2.2.2.2 ebgp-multihop 2
+neighbor 2.2.2.2 disable-connecte-check
+
+
+TCP port 179
 
 Let's get the ball rolling by disabling IPv4 as the default address family.
 
@@ -110,7 +139,18 @@ R1(config)#router bgp 42
 },
 {
 "question" : """
-Set the weight to 2000 for all routes received from 2.2.2.2
+Set the weight to 2000 for all routes received from 2.2.2.2.
+
+router bgp 42
+ address-family ipv4
+  neighbor 2.2.2.2 weight 2000
+  neighbor 3.3.3.3. route-map InBoundWeight
+!
+route-map InBoundWeight permit 10
+ set weight 15000
+
+Weight for learned routes:          0
+Weight for locally injected routes: 32,768
 
 R1(config)#router bgp 42
 """,
@@ -133,6 +173,10 @@ R1(config)#router bgp 42
 {
 "question" : """
 Remove any private AS numbers before sending to peer at 2.2.2.2
+
+neighbor 2.2.2.2 allowas-in
+neighbor 2.2.2.2 as-override
+neighbor 2.2.2.2 remove-private-as
 
 R1(config)#router bgp 42
 """,
@@ -166,6 +210,18 @@ Have the router resend all BGP info to 2.2.2.2 without resetting the connections
 "question" : """
 Create a summary route to 10.0/16 and suppress specific routes.
 
+aggregate-address <> <> [advertise-map | as-confed-set | as-set | 
+                         attribute-map | route-map | summary-only |
+                         suppress-map]
+
+advertise-map Set condition to advertise attribute
+attribute-map Set attributes of aggregate
+route-map     Set parameters of aggregate
+summary-only  Filter more specific routes from updates
+suppress-map  Conditionally filter more specific routes from updates
+
+*Must find a component route in the BGP Table
+
 R1(config)#router bgp 42
 """,
 "answer" : "aggregate-address 10.0.0.0 255.255.0.0 summary-only",
@@ -188,10 +244,31 @@ R1(config)#router bgp 42
 },
 {
 "question" : """
+Set the BGP scan time to 60
+
+router bgp 65042
+ bgp scan-time 60
+ timers bgp 60 180
+ neighbor 1.1.1.1 timers 60 180
+
+R1(config)router bgp 42
+""",
+"answer" : "bgp scan-time 60",
+"prompt": cp.config_router,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
 Enable BGP synchronization. Use the short form of the command "synch".
 
-This is a bad idea. It means an iBGP route will only be advertised to an
-eBGP peer if the route is also known from an IGP.
+This is a bad idea. It means an iBGP route will only be used and/or
+advertised to a BGP peer if the route is also known from an IGP.
+
+IOS-XR does not even support synchronization.
+
+router bgp 42
+ no synchronization
 
 R1(config)router bgp 42
 """,
@@ -314,6 +391,29 @@ R1(config)router bgp 42
 "clear_screen": True,
 "suppress_positive_affirmation": False
 },
+{
+"question" : """
+router bgp 60042
+ template peer-policy MyPolicy
+  send-community both
+  exit-peer-policy
+ template peer-session MySession
+  remote-as 65024
+  ttl-securtiy hops 3
+  exit-peer-session
+ bgp log-neighbor-changes
+ neighbor 1.1.1.1 inherit peer-session MySession
+ address-family ipv4
+!
+R1(config-router-af)
+""",
+"answer" : """neighbor 1.1.1.1 activate
+neighbor 1.1.1.1 inherit peer-policy MyPolicy
+""",
+"prompt": cp.config_router_af,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
 ]
 
 questions_3 = [
@@ -403,6 +503,9 @@ questions_4 = [
 ###############################################
 
 Set peer 2.2.2.2 to be a RR client.
+
+RR adds the ORIGINATOR_ID to avoid intra-area loops
+CLUSTER_LIST to avoid inter-area RR loops
 
 Route Reflectors have three rules:
   1)Advertise routes learned from iBGP peers to RR Clients
@@ -594,6 +697,119 @@ BGP Selection Order:
 2) Highest Local Preference
 3) Locally originated over Externally originated
 4) Shortest AS Path
+5) Lowest Origin Type (Code)    i > ?
+6) Lowest Med
+7) eBGP over iBGP
+8) Lowest BGP Router-ID
+
+Well-Known, Mandatory:    Origin, AS-Path, Next Hop
+Well-Known, Discretionay: Local Preference, Atomic Aggregate
+Optional, Transitive:     Community, Aggregator
+Optional, Non-Transitive: Originator-ID, Cluster-List, MED
+
+AS-Path prepending can influence both incoming and outgoing routes.
+
+Which command is used for AS-Path prepending? Prepend 42 to the AS-PATH 3 times.
+
+R1(config)#route-map INCREASE_LOCAL_AS permit 20
+""",
+"answer" : "set as-path prepend 42 42 42",
+"prompt": cp.config_route_map,
+"clear_screen": False,
+"suppress_positive_affirmation": True
+},
+{
+"question" : """
+Set the weight to 2000 for all routes received from 2.2.2.2.
+
+router bgp 42
+ address-family ipv4
+  neighbor 2.2.2.2 weight 2000
+  neighbor 3.3.3.3. route-map InBoundWeight
+!
+route-map InBoundWeight permit 10
+ set weight 15000
+
+Weight for learned routes:          0
+Weight for locally injected routes: 32,768
+
+R1(config)#router bgp 42
+""",
+"answer" : "neighbor 2.2.2.2 weight 2000",
+"prompt": cp.config_router,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Set the default MED to 421.
+
+router bgp 42
+ default-metric 421
+ address-family ipv4
+  neighbor 2.2.2.2 route-map MED out
+!
+route-map MED permit 10
+ match as-path 1
+ set metric 42
+!
+ip as-path access-list 1 permit ^$
+
+R1(config)#router bgp 42
+""",
+"answer" : "neighbor 2.2.2.2 weight 2000",
+"prompt": cp.config_router,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+]
+
+questions_xr = [
+{
+"question" : """
+############################
+###       BGP IOS-XR     ###
+############################
+
+iBGP
+router bgp 65000
+ address-family ipv4   <---needed for the process
+  exit
+ neighbor 192.168.100.2
+  remote-as 65000
+  update-source loopback 0
+  address-family ipv4 unicast  <---needed for the neighbor
+   next-hop-self
+!
+eBGP
+route-policy autobahn   <---Policy needed for eBGP on IOS-XR
+ pass
+ end-policy
+router bgp 65001
+ address-family ipv4
+  exit
+ neighbor 192.168.100.2
+  remote-as 65000
+  address-family ipv4 unicast
+   policy autobahn in
+   policy autobahn out
+
+No auto-summary in IOS-XR!
+
+""",
+"answer" : "local Router",
+"prompt": ">  ",
+"clear_screen": False,
+"suppress_positive_affirmation": True
+},
+{
+"question" : """
+BGP Selection Order:
+
+1) Highest weight
+2) Highest Local Preference
+3) Locally originated over Externally originated
+4) Shortest AS Path
 5) Lowest Origin Type
 6) Lowest Med
 7) eBGP over iBGP
@@ -611,5 +827,4 @@ R1(config)#route-map INCREASE_LOCAL_AS permit 20
 "suppress_positive_affirmation": True
 },
 ]
-
 

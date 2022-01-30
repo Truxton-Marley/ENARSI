@@ -7,6 +7,10 @@ questions = [
 ###     SNMP     ###
 ####################
 
+snmp-server enable traps
+snmp-server ifindex persist
+snmp-server host 1.1.1.1 traps version 3
+
 Start by creating an SNMP View.
 Name "god" the view and include iso.
 
@@ -52,6 +56,16 @@ with read-only privileges, limit the community with ACL 42
 R1(config)#
 """,
 "answer": "snmp-server community cisco123 RO 42",
+"prompt": cp.config,
+"clear_screen": True
+},
+{
+"question": """
+Use the snmp-server ifindex persist command.
+!
+R1(config)#
+""",
+"answer": "snmp-server ifindex persist",
 "prompt": cp.config,
 "clear_screen": True
 }

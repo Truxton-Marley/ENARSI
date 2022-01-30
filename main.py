@@ -43,9 +43,11 @@ modules = [
     layer_3.eigrp.questions_2,
     layer_3.eigrp.questions_3,
     layer_3.eigrp.questions_4,
+    layer_3.eigrp.questions_5,
     layer_3.ospf.questions,
     layer_3.ospf.questions_2,
     layer_3.ospf.questions_3,
+    layer_3.ospf.questions_4,
     layer_3.pbr.questions,
     layer_3.vrf_lite.questions,
     layer_3.bfd.questions,
@@ -58,7 +60,8 @@ modules = [
     # VPN
     vpn_tech.mpls.questions,
     vpn_tech.dmvpn.questions,
-    # TODO: vpn_tech.ipsec.questions,
+    vpn_tech.ipsec.questions_ikev1,
+    vpn_tech.ipsec.questions_ikev2,
     # Infrastructure Security
     infrastructure_security.acls.questions,
     infrastructure_security.acls.ipv6_questions,
@@ -78,11 +81,16 @@ modules = [
 
 system('cls')
 
-ask_questions(modules[0])
+# for i in range(1,8):
+#     ask_questions(modules[i])
+#     clear_screen_slowly(wait=2)
+
+random_index = random.randint(0, 19)
+ask_questions(modules[random_index])
 clear_screen_slowly(wait=2)
 
-# ask_questions(modules[17])
-# clear_screen_slowly(wait=2)
+random_index = random.randint(0, 19)
+ask_questions(modules[random_index])
 
 random_index = random.randint(0, len(modules) - 1)
 ask_questions(modules[random_index])
@@ -95,8 +103,4 @@ print("\nThat's it for now. Updates to follow.\n")
 
 
 # TODO: CoPP show output
-# TODO: EIGRP show ip eigrp topology output
-# TODO: IPSEC, IKEv1 and IKEv2
-# TODO: OSPFv3 authorization and OSPF filter-list
-# TODO: expand redistribution
 # TODO: expand MPLS
