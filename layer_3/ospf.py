@@ -361,6 +361,15 @@ router ospfv3 1
   maximum-paths 6
  exit-address-family
 
+Type 8 LSA - Link-Local LSA
+Type 9 LSA - Intra-Area Prefix LSA (improve SPF calculation when updateing prefixes)
+Type 11 LSA - Grace LSA
+
+Option bit in LSDB: E: capable of processing External LSAs
+                    DC: Demand Circuit/Virtual Link, can suppress hellos
+                    N: Supports Type 7 LSAs
+                    MC: Capable of Multicast extendions
+
 FF02::5 and FF02::6
 Uses Link-Local addresses to form neighbor adjecencies and exchange LSAs.
 
@@ -662,12 +671,13 @@ OSPFv3:
 
 LSAs are reflooded every 30 minutes.
 
+This type of update is also referred to as a "paranoid update" as it is only used
+to refresh the LSDB.
+
 LSAs are purged if they reach the max age of 60 minutes. This triggers a new SPF
 calulation. The LSA will also flood the LSA to other routers to inform them to
 remove the LSA too.
-
-This type of update is also referred to as a "paranoid update" as it is only used
-to refresh the LSDB.
+__________________________________________________________________________________
     
 View the OSPFv2 Database.
 
@@ -786,7 +796,7 @@ R1#
 },
 {
 "question" : """
-Show Type 1 LSAs for the R1, OSPF process 1, area 0:
+Show Type 1 LSAs for R1, OSPF process 1, area 0:
 
 R1:  
 Router-ID:        10.0.0.1
@@ -869,7 +879,7 @@ R1#
 },
 {
 "question" : """
-Show Type 2 LSAs for the R1, OSPF process 1, area 0:
+Show Type 2 LSAs for R1, OSPF process 1, area 0:
 
 R1:  
 Router-ID:        10.0.0.1
@@ -878,7 +888,7 @@ Router-Interface: 10.0.1.1
 R4#
 """,
 "answer" : "show ip ospf 1 0 database network 10.0.1.1",
-"prompt": "R4",
+"prompt": "R4#",
 "clear_screen": True,
 "post_task_output": """
             OSPF Router with ID (10.0.0.4) (Process ID 1)

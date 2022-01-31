@@ -245,7 +245,7 @@ R1(config)#interface Tunnel 42
 },
 {
 "question" : """
-Check the IKEv2 SA.
+Check IKEv2 Phase I.
 """,
 "answer" : """show crypto ikev2 sa""",
 "prompt": cp.priv_exec,
@@ -319,6 +319,48 @@ interface: Tunnel42
      outbound pcp sas:
 
 """
-}
+},
+{
+"question" : """
+Keepalives:
+
+crypto ikev2 dpd keepalive <Keepalive_interval> <Retry_interval> <on-demand|periodic>
+crypto ikev2 nat keepalive <interval>
+
+crypto isakmp keepalive <Keepalive_interval> <Retry_interval> <on-demand|periodic>
+crypto isakmp nat keepalive <interval>
+
+""",
+"answer" : """show access-lists 101""",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """Extended IP access list 101
+    10 permit udp host 10.1.1.1 host 10.2.2.2 eq isakmp log (hits 4)
+    20 permit ip any any
+
+"""
+},
+{
+"question" : """
+
+Apply inbound on Egress interface of Spoke to test:
+
+access-list 101 permit udp host 10.1.1.1 host 10.2.2.2 eq isakmp log
+access-list permit ip any any
+
+View the above ACL on the CLI:
+
+""",
+"answer" : """show access-lists 101""",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """Extended IP access list 101
+    10 permit udp host 10.1.1.1 host 10.2.2.2 eq isakmp log (hits 4)
+    20 permit ip any any
+
+"""
+},
 ]
 #"post_task_output": """"""

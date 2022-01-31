@@ -121,12 +121,13 @@ Distribute-lists can be applied at different levels:
     * Outgoing interface
     * Routing Protocol (***only outbound***,)
 
-Copy the redistribute and distribute-list from below:
-
 distribute-list <ACL> {[in | out]} [<interface> | <routing process> | <AS number>]
 distirbute-list prefix...
 distribute-list route-map...
 distribute-list gateway...
+_____________________________________________________
+
+Copy the redistribute statement and distribute-list from below:
 
 ip access-list 99 permit 10.42.10.0 0.0.0.255
 ip access-list 99 permit 10.42.11.0 0.0.0.255
@@ -202,7 +203,7 @@ R1(config-router)#redistribute eigrp 42 metric 30 subnets metric-type 1
 },
 {
 "question" : """
-View the following prefix-list with detail
+View all configured prefix-lists with detail.
 
 ip prefix-list e2o seq 5 permit 10.10.11.0/24
 ip prefix-list e2o seq 10 permit 10.10.12.0/24
@@ -222,7 +223,6 @@ ip prefix-list e2o:
 },
 {
 "question" : """
-
 Route-Maps:
     Match:
         * match ip address
@@ -257,15 +257,47 @@ R1(config-route-map)#match ip address prefix-list EIGRP-TO-OSPF
 },
 {
 "question" : """
-
 IPv6 Redistribution does not automatically include connected routes.
+_____________________________________
 
-Redistribute OSPF 46 into EIGRPv6 66
+Redistribute OSPF 46 into EIGRPv6 66. Include the connected EIGRP enabled links.
     metric: 100 10 1 255 1500
 
 R1(config)#ipv6 router eigrp 66
 """,
 "answer" : "redistribute ospf 46 metric 100 10 1 255 1500 include-connected",
+"prompt": "R1(config-rtr)#",
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+By default BGP only redistribute external (eBGP) routes. Using the
+"bgp redistribute-internal" command, we can instruct BGP to redistribute
+iBGP routes as well.
+_____________________________________
+
+Set up BGP to redistribute iBGP routes as well as eBGP routes.
+
+R1(config)#router bgp 42
+""",
+"answer" : "bgp redistribute-internal",
+"prompt": "R1(config-rtr)#",
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+When redistributing from OSPF to BGP, external and NSSA routes are
+not redistributed by default. Use "match external [1 | 2] to redistibute
+these routes.
+_____________________________________
+
+redistibute OSPF (process 89) external routes into BGP.
+
+R1(config)#router bgp 42
+""",
+"answer" : "redistribute ospf 89 match external",
 "prompt": "R1(config-rtr)#",
 "clear_screen": True,
 "suppress_positive_affirmation": False

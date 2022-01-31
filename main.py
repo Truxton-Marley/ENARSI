@@ -30,7 +30,6 @@ import infrastructure_services.netflow
 # Beyond ENARSI
 import beyond_enarsi.beyond_enarsi
 
-
 from quiz_tools import ask_questions
 from quiz_tools import clear_screen_slowly
 
@@ -42,6 +41,7 @@ modules = [
     layer_3.eigrp.questions,
     layer_3.eigrp.questions_2,
     layer_3.eigrp.questions_3,
+    #6
     layer_3.eigrp.questions_4,
     layer_3.eigrp.questions_5,
     layer_3.ospf.questions,
@@ -51,6 +51,7 @@ modules = [
     layer_3.pbr.questions,
     layer_3.vrf_lite.questions,
     layer_3.bfd.questions,
+    #15
     layer_3.bgp.questions,
     layer_3.bgp.questions_2,
     layer_3.bgp.questions_3,
@@ -58,6 +59,7 @@ modules = [
     layer_3.bgp.questions_5,
     layer_3.bgp.questions_6,
     # VPN
+    #21
     vpn_tech.mpls.questions,
     vpn_tech.dmvpn.questions,
     vpn_tech.ipsec.questions_ikev1,
@@ -85,12 +87,11 @@ system('cls')
 #     ask_questions(modules[i])
 #     clear_screen_slowly(wait=2)
 
-random_index = random.randint(0, 19)
-ask_questions(modules[random_index])
+ask_questions(modules[1])
 clear_screen_slowly(wait=2)
 
-random_index = random.randint(0, 19)
-ask_questions(modules[random_index])
+ask_questions(modules[21])
+clear_screen_slowly(wait=2)
 
 random_index = random.randint(0, len(modules) - 1)
 ask_questions(modules[random_index])
@@ -101,6 +102,4 @@ ask_questions(modules[random_index])
 
 print("\nThat's it for now. Updates to follow.\n")
 
-
 # TODO: CoPP show output
-# TODO: expand MPLS

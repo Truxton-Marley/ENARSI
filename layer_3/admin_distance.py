@@ -61,7 +61,7 @@ R1(config)#router ospf 42
 },
 {
 "question" : """
-Routes learned from 12.12.0.0/16 should have an AD of 89.
+Routes learned from 12.12.0.0/16 should have an AD of 89. (This matches the router-id in OSPF.)
 
 R1(config)#router ospf 42
 """,

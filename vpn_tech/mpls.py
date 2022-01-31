@@ -212,6 +212,8 @@ Show MPLS neighbors.
 "question" : """
 Show all VRF aware routes in the MP-BGP table used with MPLS.
 
+show bgp vpnv4 unicast {all | rd | vrf}
+
 """,
 "answer" : "show bgp vpnv4 unicast all",
 "prompt": cp.config,

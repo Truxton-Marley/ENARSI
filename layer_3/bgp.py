@@ -38,6 +38,8 @@ MP-BGP - RFC 2283, 1998
 neighbor 2.2.2.2 ebgp-multihop 2
 neighbor 2.2.2.2 disable-connecte-check
 
+show tcp brief
+telnet 1.1.1.1 179
 
 TCP port 179
 
@@ -684,7 +686,7 @@ BGP Selection Order:
 
 BGP weight only applies to the what?
 """,
-"answer" : "local Router",
+"answer" : "local router",
 "prompt": ">  ",
 "clear_screen": False,
 "suppress_positive_affirmation": True
@@ -715,7 +717,7 @@ R1(config)#route-map INCREASE_LOCAL_AS permit 20
 """,
 "answer" : "set as-path prepend 42 42 42",
 "prompt": cp.config_route_map,
-"clear_screen": False,
+"clear_screen": True,
 "suppress_positive_affirmation": True
 },
 {
@@ -757,7 +759,7 @@ ip as-path access-list 1 permit ^$
 
 R1(config)#router bgp 42
 """,
-"answer" : "neighbor 2.2.2.2 weight 2000",
+"answer" : "default-metric 421",
 "prompt": cp.config_router,
 "clear_screen": True,
 "suppress_positive_affirmation": False

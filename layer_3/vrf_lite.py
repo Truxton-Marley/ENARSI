@@ -94,7 +94,7 @@ R1(config)#router bgp 42
 """,
 "answer" : """address-family ipv4 vrf bunny""",
 "prompt": cp.config_router,
-"clear_screen": False,
+"clear_screen": True,
 "suppress_positive_affirmation": False
 },
 {
@@ -102,10 +102,11 @@ R1(config)#router bgp 42
 Upgrade old school VRF configs to new school VRF configs.
 
 vrf upgrade-cli multi-af-mode {common-policies | non-common-policies} [vrf <vrf_name>]
+
 """,
 "answer" : """vrf upgrade-cli multi-af-mode common-policies""",
 "prompt": cp.config,
-"clear_screen": False,
+"clear_screen": True,
 "suppress_positive_affirmation": False
 },
 ]
