@@ -94,6 +94,12 @@ R1(config)#
 },
 {
 "question" : """
+
+SSH:
+    Version 1.5     - Only SSHv1
+    Version 1.99    - SSHv1 or SSHv2
+    Version 2.0     - Only SSHv2
+
 Set the router to only use SSHv2
 Then set it to provide two login attempts.
 The default is three.

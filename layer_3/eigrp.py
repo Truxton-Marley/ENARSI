@@ -280,7 +280,7 @@ Prefixes - Number of prefixes received from peer
 
 R1#
 """,
-"answer" : "show ip eigrp neighbors",
+"answer" : "show ip eigrp neighbors detail",
 "prompt": cp.priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
@@ -482,7 +482,7 @@ R1(config)#router eigrp NAMED
 R1(config-router)#address-family ipv4 as 42
 R1(config-router)#topology base
 """,
-"answer" : "offset-list 1 in 2000 int gig 0/3",
+"answer" : "offset-list 1 in 2000 gig 0/3",
 "prompt": cp.config_router_af_topology,
 "clear_screen": True,
 "suppress_positive_affirmation": False
@@ -669,7 +669,7 @@ EIGRPv6 uses the link-local address to form neighborships.
 Enable classic EIGRP IPv6 on interface gig 0/3
 
 R1(config)#ipv6 unicast-routing
-R1(config)#ipv6 router eigrp 42
+R1(config)#ipv6 router eigrp 42 1.1.1.1
 R1(config-router)#eigrp router-id
 R1(config-router)#interface GigabitEthernet 0/3
 """,

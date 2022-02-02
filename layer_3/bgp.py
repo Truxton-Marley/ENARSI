@@ -829,4 +829,3 @@ R1(config)#route-map INCREASE_LOCAL_AS permit 20
 "suppress_positive_affirmation": True
 },
 ]
-

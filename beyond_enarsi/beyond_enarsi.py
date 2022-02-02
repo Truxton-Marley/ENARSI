@@ -2,6 +2,9 @@ import common_prompts as cp
 
 # TOC
 # PPP
+# EPC
+
+# TODO: add, IOS versions, IS-IS, EPC
 
 questions_ppp = [
 {
@@ -147,4 +150,32 @@ ip mtu 1492""",
 # "clear_screen": False,
 # "suppress_positive_affirmation": False
 # },
+]
+
+questions_epc = [
+{
+"question" : """
+###################
+###     EPC     ###
+###################
+
+Embedded Packet Capture
+
+monitor capture buffer MYBUFFER filter access-list MYACL max-size 1514
+monitor capture point ip cef MYCAPTURE gig 0/3 both
+monitor capture point associate MYCAPTURE MYBUFFER
+monitor capture MYCAPTURE start
+monitor capture MYCAPTURE stop
+monitor capture MYBUFFER export <location>
+______________________________________________________________________
+
+Start a capture named "pcap".
+
+R1#
+""",
+"answer" : "monitor capture pcap start",
+"prompt": cp.priv_exec,
+"clear_screen": False,
+"suppress_positive_affirmation": False
+},
 ]

@@ -11,11 +11,13 @@ PBR can match on ip address or length.
 set:
   set ip next-hop x.x.x.x
   set interface...
-  set ip default next-hop x.x.x.x
+  set ip default next-hop x.x.x.x  <---Only use next-hop if no viable route in RIB
   set default interface...
 Verify:
   show ip policy
-  debug ip policy
+  debug ip 
+  
+PBR is applied to incoming traffic on an interface only!!!
 ______________________________________
 
 Create a route-map named PBR to match ACL 110

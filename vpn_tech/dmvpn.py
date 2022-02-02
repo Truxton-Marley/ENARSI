@@ -65,8 +65,8 @@ ip nhrp map multicast 1.1.1.1""",
 },
 {
 "question" : """
-
-show ip nhrp
+NHRP
+____
 
 NHRP Message Types:
   Registration, Resolution, Redirect, Purge, Error
@@ -104,7 +104,7 @@ show ip nhrp multicast
 ping 224.0.0.10 | 224.0.0.5 | 224.0.0.9   <--Test routing protocols
 _____________________________
 
-Run show ip nhrp
+Run show ip nhrp.
 
 """,
 "answer" : """show ip nhrp""",
@@ -135,7 +135,7 @@ Run show ip nhrp
 Run show ip nhrp nhs detail
 """,
 "answer" : "show ip nhrp nhs detail",
-"prompt": cp.config_if,
+"prompt": "R3#",
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """Legend: E=Expecting replies, R=Responding, W=Waiting
@@ -146,6 +146,8 @@ Tunnel0:
 {
 "question" : """
 Turn off the NHRP unique Flag.
+
+R3(config)#interface Tunnel 0
 """,
 "answer" : "ip nhrp registration no-unique",
 "prompt": cp.config_if,

@@ -18,9 +18,11 @@ Type 5 Link-State Acknowledgement
 
 ---
 
+Set the router-id to 1.1.1.1.
+
 R11(config)#router ospf 1
 """,
-"answer" : "area 24 virtual-link 22.22.22.22",
+"answer" : "router-id 1.1.1.1",
 "prompt": "R11(config-router)#",
 "clear_screen": False,
 },
@@ -102,6 +104,16 @@ R1(config)#router ospf 1
 },
 {
 "question" : """
+Enable MPLS on OSPF enabled links.
+
+R1(config)router ospf 1
+""",
+"answer" : """mpls autoconfig""",
+"prompt": cp.config_router,
+"clear_screen": True,
+},
+{
+"question" : """
 Set the password and enable clear-text authentication
 for OSPF on interface gig 0/1.
 
@@ -110,16 +122,6 @@ R1(config)interface gig 0/1
 "answer" : """ip ospf authentication-key cisco123
 ip ospf authentication""",
 "prompt": cp.config_if,
-"clear_screen": True,
-},
-{
-"question" : """
-Enable MPLS on OSPF enabled links.
-
-R1(config)router ospf 1
-""",
-"answer" : """mpls autoconfig""",
-"prompt": cp.config_router,
 "clear_screen": True,
 },
 {
@@ -171,16 +173,6 @@ R1(config-keychain-key)#cryptographic-algorithm hmac-sha-256
 R1(config)#interface gig 0/1
 """,
 "answer" : """ip ospf authentication key-chain ciscokc""",
-"prompt": cp.config_router,
-"clear_screen": True,
-},
-{
-"question" : """
-Set the router-id to 1.1.1.1
-
-R1(config)#router ospf 1
-""",
-"answer" : "router-id 1.1.1.1",
 "prompt": cp.config_router,
 "clear_screen": True,
 },
@@ -335,7 +327,7 @@ ip prefix-list mypl seq 10 permit 0.0.0.0/0 le 32
 
 R1(config)#router ospf 1
 """,
-"answer" : "area 2 filter-list prefix mypl out",
+"answer" : "area 3 filter-list prefix mypl out",
 "prompt": cp.config_router,
 "clear_screen": True,
 }

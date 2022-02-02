@@ -93,7 +93,6 @@ R1(config)#
 },
 {
 "question" : """
-
 Let's apply the route map to EIGRP 42 routes redistributed into OSPF process 1:
 
 Create E1 route, don't forget "subnets", and then, of course, the route-map.
@@ -114,7 +113,6 @@ R1(config)#router ospf 1
 },
 {
 "question" : """
-
 Distribute-lists allow us to apply ACLs (or PLs or RMs) to redistibution.
 Distribute-lists can be applied at different levels:
     * Incoming interface
@@ -146,7 +144,6 @@ distribute-list 99 out eigrp 88""",
 },
 {
 "question" : """
-
 Distribute-lists allow us to apply ACLs (or PLs or RMs) to redistibution.
 Distribute-lists can be applied at different levels:
     * Incoming interface
@@ -244,6 +241,16 @@ Route-Maps:
         * set ip next-hop
         * set ip vrf
         * abd more!
+
+Match statements on the same line are an OR:
+    match ip address 42 66
+Match statements on different lines area an AND:
+    match ip address 42
+    match ip address 66
+
+Referencing a non-existent route-map during redistribution results in
+all prefixes being denied.
+_________________________________________________
 
 Use the set statement to create E1 routes.
 
