@@ -330,8 +330,10 @@ crypto ikev2 nat keepalive <interval>
 crypto isakmp keepalive <Keepalive_interval> <Retry_interval> <on-demand|periodic>
 crypto isakmp nat keepalive <interval>
 
+Check out these keepalive statements and hit the enter key when ready to move on.
+
 """,
-"answer" : """show access-lists 101""",
+"answer" : """""",
 "prompt": cp.priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
@@ -344,7 +346,7 @@ crypto isakmp nat keepalive <interval>
 {
 "question" : """
 
-Apply inbound on Egress interface of Spoke to test:
+Apply inbound on the egress interface to test:
 
 access-list 101 permit udp host 10.1.1.1 host 10.2.2.2 eq isakmp log
 access-list permit ip any any
@@ -357,7 +359,7 @@ View the above ACL on the CLI:
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """Extended IP access list 101
-    10 permit udp host 10.1.1.1 host 10.2.2.2 eq isakmp log (hits 4)
+    10 permit udp host 10.1.1.1 host 10.2.2.2 eq isakmp log (hits: 4)
     20 permit ip any any
 
 """

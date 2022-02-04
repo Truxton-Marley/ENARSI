@@ -32,11 +32,11 @@ Good CiscoLive: BRKCCIE-3000
   check out RouteViews.org too
 
 First RFC 1105
-BGP 4  - RFC 1654, 1994, added CIDR support
+BGP 4  - RFC 1654, 1994; (added CIDR support)
 MP-BGP - RFC 2283, 1998
 
 neighbor 2.2.2.2 ebgp-multihop 2
-neighbor 2.2.2.2 disable-connecte-check
+neighbor 2.2.2.2 disable-connected-check
 
 show tcp brief
 telnet 1.1.1.1 179
@@ -212,9 +212,9 @@ Have the router resend all BGP info to 2.2.2.2 without resetting the connections
 "question" : """
 Create a summary route to 10.0/16 and suppress specific routes.
 
-aggregate-address <> <> [advertise-map | as-confed-set | as-set | 
-                         attribute-map | route-map | summary-only |
-                         suppress-map]
+aggregate-address <network> <subnet> [advertise-map | as-confed-set | as-set | 
+                                      attribute-map | route-map | summary-only |
+                                      suppress-map]
 
 advertise-map Set condition to advertise attribute
 attribute-map Set attributes of aggregate
@@ -235,7 +235,7 @@ R1(config)#router bgp 42
 "question" : """
 Create a summary route to 10.0/16 and suppress specific routes.
 
-BUT include the original BGP Path Info
+BUT include the original BGP Path information.
 
 R1(config)#router bgp 42
 """,
@@ -246,7 +246,7 @@ R1(config)#router bgp 42
 },
 {
 "question" : """
-Set the BGP scan time to 60
+Set the BGP scan time to 60.
 
 router bgp 65042
  bgp scan-time 60
@@ -379,7 +379,7 @@ R1(config)#router bgp 100
 {
 "question" : """
 Now that we have created the Peer Group "local",
-let's us it for our peer at 24.24.24.24
+let's use it for our peer at 24.24.24.24
 
 neighbor local peer-group
 neighbor local remote-as 42
@@ -407,11 +407,17 @@ router bgp 60042
  neighbor 1.1.1.1 inherit peer-session MySession
  address-family ipv4
 !
+------------------------------------------------
+
+Activate neighbor 1.1.1.1 and apply the above
+peer-policy.
+
+------------------------------------------------
+
 R1(config-router-af)
 """,
 "answer" : """neighbor 1.1.1.1 activate
-neighbor 1.1.1.1 inherit peer-policy MyPolicy
-""",
+neighbor 1.1.1.1 inherit peer-policy MyPolicy""",
 "prompt": cp.config_router_af,
 "clear_screen": True,
 "suppress_positive_affirmation": False
@@ -441,7 +447,6 @@ R1(config-router-af)#
 },
 {
 "question" : """
-
 Finish off the following Prefix-list to match all of the remaining
 RFC routes.
 
