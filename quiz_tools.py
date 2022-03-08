@@ -3,6 +3,9 @@ import time
 
 from os import system
 
+###################################
+###      Multiple Choice        ###
+###################################
 
 def print_encouragement():
     encouragement = ["Great Job!", "Good Work!", "That's the answer :)", "Yeap.", "Bon Travail, mon ami!",
@@ -65,3 +68,36 @@ def ask_questions(questions, training_mode=False):
             preview_answer(question)
         answer = get_answer(question)
         check_answer(answer, question)
+
+#####################################
+###      Fill in the Blank        ###
+#####################################
+
+def get_text(file):
+    text = ""
+    with open(file, "r") as f:
+        for line in f.readlines():
+            text += line
+    return text
+
+def get_blanks(text):
+    len_text = text.count( "\n" ) + 1
+    number_of_blanks = len_text // 4
+    blanks = [random.randint(0, len_text) for ran in range(0, number_of_blanks)]
+    blanks = sorted(set(blanks))
+    return blanks
+
+def get_fib_question(file):
+    text = get_text(file)
+    blanks = get_blanks(text)
+    for i, line in enumerate(text.split("\n")):
+        if i not in blanks:
+            print(line)
+        elif line.strip().startswith("!"):
+            continue
+        else:
+            solution = line.strip()
+            response = input()
+            while solution != response:
+                print("Answer:", line)
+                response = input()
