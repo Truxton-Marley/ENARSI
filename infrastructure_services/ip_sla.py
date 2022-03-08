@@ -7,7 +7,6 @@ questions = [
 ###     IP SLA     ###
 ######################
 
-
 Create a basic ICMP-ECHO IP SLA (42).
 Destination address 42.42.42.42
 Send it every 10 seconds.

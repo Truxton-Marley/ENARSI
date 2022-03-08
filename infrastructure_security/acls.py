@@ -80,7 +80,6 @@ Create a timeout for our Reflexive ACL of 120 seconds.
 },
 {
 "question" : """
-
 Now for the inbound side of our ACL. Finish off the following
 ACL with an evaluate statement name tcptraffic
 
@@ -95,7 +94,6 @@ R1(config-ext-nacl)#permit ospf any any
 },
 {
 "question" : """
-
 Onward to the outbound ACL. Complete the ACL below
 with a reflect statement named tcptraffic.
 

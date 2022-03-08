@@ -125,5 +125,19 @@ R1(config)#
 "prompt": cp.config,
 "clear_screen": True,
 "suppress_positive_affirmation": False
+},
+{
+"question" : """
+Use the hidekeys command to protect password info in the configuation log files.
+!
+R1#show archive log config all
+!
+R1(config)#archive
+R1(config-archive)#log config
+""",
+"answer" : "hidekeys",
+"prompt": "R1(config-archive-log-config)#",
+"clear_screen": True,
+"suppress_positive_affirmation": False
 }
 ]

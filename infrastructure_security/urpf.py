@@ -7,7 +7,7 @@ questions = [
 ###     uRPF     ###
 ####################
 
-"ip verify unicast source reachable-via..." replaces the older "ip verify unicast reverse-path".
+"ip verify sourcen unicast reachable-via..." replaces the older "ip verify unicast reverse-path".
 Options:
        allow-default
        allow-self-ping   <---Avoid, opens up DoS attacks

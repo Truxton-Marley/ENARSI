@@ -46,8 +46,7 @@ ip flow egress""",
 },
 {
 "question" : """
-
-Now let's check the cache flow
+Now let's check the cache flow.
 
 R1(config)interface gig 0/0
 R1(config-if)#ip flow ingress

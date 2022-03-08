@@ -7,6 +7,8 @@ questions = [
 ###     IPv6 First Hop Security     ###
 #######################################
 
+May require a programmed TCAM
+
 Create a policy for IPv6 DHCPv6 Guard.
 Name it dhcp-routers.
 Assign the role to server.

@@ -7,6 +7,9 @@ questions = [
 ###        OSPFv2        ###
 ############################
 
+# TODO: check out OSPF Loop-Free Alternate Fast Reroute???
+#       It's on Boson, so maybe on exam.
+
 OSPFv2
     RFCs - 1247 and 2329
 
@@ -339,6 +342,10 @@ questions_3 = [
 ############################
 ###        OSPFv3        ###
 ############################
+
+IPv4 instance-ids: 64-95
+IPv6 instance-ids: 0-31
+opsfv3 <process_id> {ipv4|ipv6} area <area_id> [instance <instance_id>]
 
 RFC 5340
 
@@ -1126,4 +1133,70 @@ i 10.0.0.14 [2040] via 10.9.10.9, GigabitEthernet0/1, ABR, Area 0, SPF 9
 # "post_task_output": """
 # """
 # },
+]
+
+
+questions_5 = [
+{
+"question" : """
+OSPFv2 Loop-Free Alternate Fast Reroute, LFA FRR
+
+# TODO: check out OSPF Loop-Free Alternate Fast Reroute???
+#       It's on Boson, so maybe on exam.
+
+- Quicker convergence when a link fails, bypass SPF
+- Predetermined backup route added to CEF
+
+First factor to check for a repair path:
+  SRLG - Shared Risk Link Group
+Second:
+  Primary-Path - eliminate non-ECMP links
+Third and so on:
+  Interface-Disjoint
+  lowest-metric
+  linecard-disjoint
+  node-protecting
+  broadcast-interface-disjoint
+  load-sharing
+
+Primary selection factor to choose repair path?
+
+""",
+"answer" : "srlg",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"post_task_output": """
+"""
+},
+{
+"question" : """
+OSPFv2 Loop-Free Alternate Fast Reroute, LFA FRR
+
+- Quicker convergence when a link fails, bypass SPF
+- Predetermined backup route added to CEF
+
+First factor to check for a repair path:
+  SRLG - Shared Risk Link Group
+Second:
+  Primary-Path - eliminate non-ECMP links
+Third and so on:
+  Interface-Disjoint
+  lowest-metric
+  linecard-disjoint
+  node-protecting
+  broadcast-interface-disjoint
+  load-sharing
+
+fast-reroute {per-prefix | keep-all-paths} enable area 0 prefix-priority {high | low}
+
+Enable OSPF LFA FRR for area 0 with low prefix-priority
+
+R1(config)#router ospf 1
+""",
+"answer" : "fast-reroute per-prefix enable area 0 prefix-priority low",
+"prompt": cp.config_router,
+"clear_screen": True,
+"post_task_output": """
+"""
+},
 ]

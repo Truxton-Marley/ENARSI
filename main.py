@@ -65,6 +65,7 @@ modules = [
     vpn_tech.ipsec.questions_ikev1,
     vpn_tech.ipsec.questions_ikev2,
     # Infrastructure Security
+    #25
     infrastructure_security.acls.questions,
     infrastructure_security.acls.ipv6_questions,
     infrastructure_security.urpf.questions,
@@ -73,11 +74,13 @@ modules = [
     infrastructure_security.ipv6_first_hop.questions,
     infrastructure_services.device_management.questions,
     # Infrastructure Services
+    #32
     infrastructure_services.snmp.questions,
     infrastructure_services.logging.questions,
     infrastructure_services.dhcp.questions,
     infrastructure_services.ip_sla.questions,
     infrastructure_services.netflow.classic_netflow_questions,
+    #37
     infrastructure_services.netflow.flexible_netflow_questions
 ]
 
@@ -86,9 +89,6 @@ system('cls')
 # for i in range(1,8):
 #     ask_questions(modules[i])
 #     clear_screen_slowly(wait=2)
-
-ask_questions(modules[1])
-clear_screen_slowly(wait=2)
 
 ask_questions(modules[21])
 clear_screen_slowly(wait=2)

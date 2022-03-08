@@ -511,8 +511,9 @@ questions_4 = [
 
 Set peer 2.2.2.2 to be a RR client.
 
-RR adds the ORIGINATOR_ID to avoid intra-area loops
-CLUSTER_LIST to avoid inter-area RR loops
+RRs adda the ORIGINATOR_ID to avoid intra-area loops
+and CLUSTER_LIST to avoid inter-area RR loops. These
+are both optional, non-transitive attributes.
 
 Route Reflectors have three rules:
   1)Advertise routes learned from iBGP peers to RR Clients
@@ -710,8 +711,8 @@ BGP Selection Order:
 8) Lowest BGP Router-ID
 
 Well-Known, Mandatory:    Origin, AS-Path, Next Hop
-Well-Known, Discretionay: Local Preference, Atomic Aggregate
-Optional, Transitive:     Community, Aggregator
+Well-Known, Discretionay: Local Preference, Atomic Aggregate (Route aggregation is happening)
+Optional, Transitive:     Community, Aggregator (Who is doing route aggregation)
 Optional, Non-Transitive: Originator-ID, Cluster-List, MED
 
 AS-Path prepending can influence both incoming and outgoing routes.
@@ -765,6 +766,20 @@ ip as-path access-list 1 permit ^$
 R1(config)#router bgp 42
 """,
 "answer" : "default-metric 421",
+"prompt": cp.config_router,
+"clear_screen": True,
+"suppress_positive_affirmation": False
+},
+{
+"question" : """
+Multipath load sharing:
+
+maximum-paths 3       <---Only applies to eBGP
+maximum-paths ibgp 3  <---Only applies to iBGP
+maximum-paths eibgp 3 <---Applies to both eBGP and iBGP
+
+""",
+"answer" : "maximum-paths 3",
 "prompt": cp.config_router,
 "clear_screen": True,
 "suppress_positive_affirmation": False

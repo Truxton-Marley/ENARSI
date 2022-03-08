@@ -115,6 +115,7 @@ policy-map routing-policy
 !
 control-plane
   service-policy input routing-policy
+!
 """,
 "answer" : "show policy-map control-plane",
 "prompt": cp.user_exec,
