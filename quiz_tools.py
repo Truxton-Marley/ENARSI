@@ -94,10 +94,11 @@ def get_fib_question(file):
         if i not in blanks:
             print(line)
         elif line.strip().startswith("!"):
-            continue
+            print(line)
         else:
-            solution = line.strip()
+            solution = line
+            print(line)
             response = input()
-            while solution != response:
+            while solution.lower() != response.lower():
                 print("Answer:", line)
                 response = input()

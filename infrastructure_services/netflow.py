@@ -40,7 +40,7 @@ R1(config)interface gig 0/0
 """,
 "answer" : """ip flow ingress
 ip flow egress""",
-"prompt": cp.config,
+"prompt": cp.config_if,
 "clear_screen": False,
 "suppress_positive_affirmation": False
 },

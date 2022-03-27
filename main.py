@@ -30,6 +30,7 @@ import infrastructure_services.netflow
 # Beyond ENARSI
 import beyond_enarsi.beyond_enarsi
 
+# Quiz Tools
 from quiz_tools import ask_questions
 from quiz_tools import clear_screen_slowly
 
@@ -85,13 +86,6 @@ modules = [
 ]
 
 system('cls')
-
-# for i in range(1,8):
-#     ask_questions(modules[i])
-#     clear_screen_slowly(wait=2)
-
-ask_questions(modules[21])
-clear_screen_slowly(wait=2)
 
 random_index = random.randint(0, len(modules) - 1)
 ask_questions(modules[random_index])
