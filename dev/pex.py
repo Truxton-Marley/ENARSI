@@ -1,17 +1,13 @@
 import common_prompts as cp
 
-# TOC
-# PPP
-# EPC
-
-# TODO: add, IOS versions, IS-IS, EPC, VXLAN, LISP, L2TP
-
 questions_pexpect = [
 {
 "question" : """
 #######################
 ###     pexpect     ###
 #######################
+
+###WORK IN PROGRESS; BASED HEAVILY/VERBATIM ON THE DOCS
 
 Read the docs:
 https://pexpect.readthedocs.io/en/stable/overview.html
@@ -36,7 +32,7 @@ dir(pexpect)
 
 """,
 "answer" : "dir(expect)",
-"prompt": cp.config_if,
+"prompt": "",
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """['EOF', 'ExceptionPexpect', 'Expecter', 'PY3', 'TIMEOUT', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__revision__', '__spec__', '__version__', 'exceptions', 'expect', 'is_executable_file', 'pty_spawn', 'run', 'runu', 'searcher_re', 'searcher_string', 'spawn', 'spawnbase', 'spawnu', 'split_command_line', 'sys', 'utils', 'which']
@@ -63,7 +59,7 @@ child.sendline("show version")
 """,
 "answer" : """child.expect("#")
 child.sendline("show version")""",
-"prompt": cp.config_if,
+"prompt": "",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""

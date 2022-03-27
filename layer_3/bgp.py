@@ -5,22 +5,6 @@ import common_prompts as cp
 #3 AS-Paths and Filtering
 #4 Confederations and Router-Reflectors
 
-{
-"question" : """
-
-auto-summary
-
-network 10.0.0.0   <---any classful network statement ->
-  Looks for any component network and then injects the classful network into the routing table
-
-R1(config)#
-""",
-"answer" : "",
-"prompt": cp.config_router,
-"clear_screen": True,
-"suppress_positive_affirmation": False
-},
-
 questions = [
 {
 "question" : """
@@ -146,7 +130,7 @@ Set the weight to 2000 for all routes received from 2.2.2.2.
 router bgp 42
  address-family ipv4
   neighbor 2.2.2.2 weight 2000
-  neighbor 3.3.3.3. route-map InBoundWeight
+  neighbor 3.3.3.3 route-map InBoundWeight
 !
 route-map InBoundWeight permit 10
  set weight 15000
@@ -511,7 +495,7 @@ questions_4 = [
 
 Set peer 2.2.2.2 to be a RR client.
 
-RRs adda the ORIGINATOR_ID to avoid intra-area loops
+RRs add the ORIGINATOR_ID to avoid intra-area loops
 and CLUSTER_LIST to avoid inter-area RR loops. These
 are both optional, non-transitive attributes.
 
@@ -695,7 +679,7 @@ BGP weight only applies to the what?
 "answer" : "local router",
 "prompt": ">  ",
 "clear_screen": False,
-"suppress_positive_affirmation": True
+"suppress_positive_affirmation": False
 },
 {
 "question" : """
@@ -724,7 +708,7 @@ R1(config)#route-map INCREASE_LOCAL_AS permit 20
 "answer" : "set as-path prepend 42 42 42",
 "prompt": cp.config_route_map,
 "clear_screen": True,
-"suppress_positive_affirmation": True
+"suppress_positive_affirmation": False
 },
 {
 "question" : """
@@ -777,6 +761,8 @@ Multipath load sharing:
 maximum-paths 3       <---Only applies to eBGP
 maximum-paths ibgp 3  <---Only applies to iBGP
 maximum-paths eibgp 3 <---Applies to both eBGP and iBGP
+
+maximum-paths 3
 
 """,
 "answer" : "maximum-paths 3",

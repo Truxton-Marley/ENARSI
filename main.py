@@ -29,20 +29,19 @@ import infrastructure_services.ip_sla
 import infrastructure_services.netflow
 # Beyond ENARSI
 import beyond_enarsi.beyond_enarsi
+#
+import dev.pex
 
 # Quiz Tools
 from quiz_tools import ask_questions
 from quiz_tools import clear_screen_slowly
 
-modules = [
-    beyond_enarsi.beyond_enarsi.questions_ppp,
-    #Layer 3
+module_layer_3 = [
     layer_3.admin_distance.questions,
     layer_3.redistribution.questions,
     layer_3.eigrp.questions,
     layer_3.eigrp.questions_2,
     layer_3.eigrp.questions_3,
-    #6
     layer_3.eigrp.questions_4,
     layer_3.eigrp.questions_5,
     layer_3.ospf.questions,
@@ -52,47 +51,81 @@ modules = [
     layer_3.pbr.questions,
     layer_3.vrf_lite.questions,
     layer_3.bfd.questions,
-    #15
     layer_3.bgp.questions,
     layer_3.bgp.questions_2,
     layer_3.bgp.questions_3,
     layer_3.bgp.questions_4,
     layer_3.bgp.questions_5,
-    layer_3.bgp.questions_6,
-    # VPN
-    #21
+    layer_3.bgp.questions_6
+]
+
+module_vpn = [
     vpn_tech.mpls.questions,
     vpn_tech.dmvpn.questions,
     vpn_tech.ipsec.questions_ikev1,
-    vpn_tech.ipsec.questions_ikev2,
-    # Infrastructure Security
-    #25
+    vpn_tech.ipsec.questions_ikev2
+]
+
+module_infra_security = [
     infrastructure_security.acls.questions,
     infrastructure_security.acls.ipv6_questions,
     infrastructure_security.urpf.questions,
     infrastructure_security.aaa.questions,
     infrastructure_security.copp.questions,
     infrastructure_security.ipv6_first_hop.questions,
-    infrastructure_services.device_management.questions,
-    # Infrastructure Services
-    #32
+    infrastructure_services.device_management.questions
+]
+
+module_infra_services = [
     infrastructure_services.snmp.questions,
     infrastructure_services.logging.questions,
     infrastructure_services.dhcp.questions,
     infrastructure_services.ip_sla.questions,
     infrastructure_services.netflow.classic_netflow_questions,
-    #37
     infrastructure_services.netflow.flexible_netflow_questions
 ]
 
+module_beyond_enarsi = [
+    beyond_enarsi.beyond_enarsi.questions_ppp,
+]
+
+module_dev = [
+    dev.pex.questions_pexpect
+]
+
+modules = [module_layer_3, module_vpn, module_infra_security,
+           module_infra_services, module_beyond_enarsi, module_dev]
+
+system('cls')
+print("""What would you like to practice today?
+
+1) General Enarsi
+2) Layer_3
+3) VPN
+4) Infrastructure Security
+5) Infrastructure Services
+6) Beyond Enarsi
+7) Dev
+""")
+
+# TODO: add error handling here, maybe move this to a function in
+#       quiz tools.
+subject = ""
+try:
+    subject = int(input("Please select a number: "))
+except:
+    print("Please enter a number from the list.")
+
 system('cls')
 
-random_index = random.randint(0, len(modules) - 1)
-ask_questions(modules[random_index])
-clear_screen_slowly(wait=2)
-
-random_index = random.randint(0, len(modules) - 1)
-ask_questions(modules[random_index])
+for i in range(4):
+    if subject == 1:
+        questions = modules[random.randint(0, 4)]
+    else:
+        questions = modules[subject-2]
+    random_index = random.randint(0, len(questions) - 1)
+    ask_questions(questions[random_index])
+    clear_screen_slowly(wait=2)
 
 print("\nThat's it for now. Updates to follow.\n")
 
