@@ -1,5 +1,6 @@
 user_exec = "R1#"
 priv_exec = "R1#"
+single_chevron = ">"
 # General
 config = "R1(config)#"
 config_if = "R1(config-if)#"

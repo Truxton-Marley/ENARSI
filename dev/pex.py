@@ -28,11 +28,13 @@ Install:
 pip install pexpect
 ---
 import pexpect
+___________________
+
 dir(pexpect)
 
 """,
-"answer" : "dir(expect)",
-"prompt": "",
+"answer" : "dir(pexpect)",
+"prompt": ">",
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """['EOF', 'ExceptionPexpect', 'Expecter', 'PY3', 'TIMEOUT', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__revision__', '__spec__', '__version__', 'exceptions', 'expect', 'is_executable_file', 'pty_spawn', 'run', 'runu', 'searcher_re', 'searcher_string', 'spawn', 'spawnbase', 'spawnu', 'split_command_line', 'sys', 'utils', 'which']
@@ -40,9 +42,9 @@ dir(pexpect)
 },
 {
 "question" : """
-###################
+#######################
 ###     pexpect     ###
-###################
+#######################
 import pexpect
 child = pexpect.spawn("telnet 172.16.1.20")
 
@@ -54,21 +56,24 @@ child.sendline("cisco1233")
 
 child.expect("#")
 child.sendline("show version")
+______________________________
 
+child.expect("#")
+child.sendline("show version")
 
 """,
 "answer" : """child.expect("#")
 child.sendline("show version")""",
-"prompt": "",
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
 },
 {
 "question" : """
-###################
+#######################
 ###     pexpect     ###
-###################
+#######################
 import pexpect
 child = pexpect.spawn("telnet 172.16.1.20")
 
@@ -78,14 +83,16 @@ child.sendline("admin")
 child.expect("Password")
 child.sendline("cisco1233")
 
-child.logfile = sys.stdout.buffer
+child.logfile_read = sys.stdout
+
+child.interact()
+________________________________
 
 child.interact()
 
 """,
-"answer" : """child.expect("#")
-child.sendline("show version")""",
-"prompt": cp.config_if,
+"answer" : """child.interact()""",
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -95,6 +102,9 @@ child.sendline("show version")""",
 #######################
 ###     pexpect     ###
 #######################
+
+Read the docs:
+https://pexpect.readthedocs.io/en/stable/overview.html
 
 i = child.expect (['Permission denied', 'Terminal type', '[#\$] '])
 if i==0:
@@ -107,11 +117,13 @@ elif i==1:
 elif i==2:
     print('Login OK.')
     print('Shell command prompt', child.after)
+_____________________________________________________
 
 child.kill(0)
+
 """,
 "answer" : """child.kill(0)""",
-"prompt": cp.config_if,
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -122,7 +134,9 @@ child.kill(0)
 ###     pexpect     ###
 #######################
 
+Read the docs:
 https://pexpect.readthedocs.io/en/stable/overview.html
+
 "There are two special patterns to match the End Of File (EOF) or a Timeout condition (TIMEOUT).
 You can pass these patterns to expect(). These patterns are not regular expressions. Use them
 like predefined constants.
@@ -133,13 +147,25 @@ by using the EOF pattern expect. In this case everything the child has output wi
 in the before property.
 "
 
+try:
+    child = pexpect.spawn("telnet 172.16.1.20")
+    <...stuff...>
+except KeyboardInterupt:
+    print("foobar")
+except.pexpect.exceptions.EOF:
+    print("foo")
+except.pexpect.exceptions.TIMEOUT:
+    print("bar")
+
+_____________________
+
 child.expect(TIMEOUT)
 child.expect(EOF)
 
 """,
 "answer" : """child.expect(TIMEOUT)
 child.expect(EOF)""",
-"prompt": cp.config_if,
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -150,12 +176,13 @@ child.expect(EOF)""",
 ###     pexpect     ###
 #######################
 
+Manually set the timeout:
+
 child.expect("password:", timeout=120)
 
 """,
-"answer" : """child.expect("password:", timeout=120)
-child.sendline("show version")""",
-"prompt": cp.config_if,
+"answer" : """child.expect("password:", timeout=120)""",
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -192,7 +219,7 @@ child.expect("\r\n")
 
 """,
 "answer" : """child.expect("\r\n")""",
-"prompt": cp.config_if,
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -217,7 +244,7 @@ Pass
 
 """,
 "answer" : """""",
-"prompt": cp.config_if,
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -239,7 +266,7 @@ child.logfile = sys.stdout.buffer
 
 """,
 "answer" : """child.logfile = sys.stdout.buffer""",
-"prompt": cp.config_if,
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -254,7 +281,7 @@ str(child)
 
 """,
 "answer" : """str(child)""",
-"prompt": cp.config_if,
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -276,7 +303,7 @@ child.logout()
 
 """,
 "answer" : """""",
-"prompt": cp.config_if,
+"prompt": ">",
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
