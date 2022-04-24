@@ -84,6 +84,7 @@ child.expect("Password")
 child.sendline("cisco1233")
 
 child.logfile_read = sys.stdout
+child.logfile_read = None
 
 child.interact()
 ________________________________

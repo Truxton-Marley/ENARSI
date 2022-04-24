@@ -1,7 +1,8 @@
 import random
 import time
 
-from os import system
+from os import system, name
+from sys import exit
 
 ###################################
 ###      Multiple Choice        ###
@@ -9,15 +10,22 @@ from os import system
 
 def print_encouragement():
     encouragement = ["Great Job!", "Good Work!", "That's the answer :)", "Yeap.", "Bon Travail, mon ami!",
-                    "That's the stuff, pal!", "Merde, vous etes trop fort, mon capitaine!!!", "Volltreffer!"]
+                    "That's the stuff, pal!", "Merde, vous etes trop fort, mon capitaine!!!", "Volltreffer!",
+                    "Les erreurs passent, il n'y a que le vrai qui reste.", "Il ne suffit pas de faire le bien, faut encore le bien faire.",
+                    "Vouloir, c'est pouvoir", "Übung macht den Meister.", "Petit à petit, l'oiseau fait son nid",
+                    "If you're in pitch blackness, all you can do is sit tight unit your eyes adjust to the dark.",
+                    "Bald reif hält nicht steif.", "Anfangen ist leicht, Beharren eine Kunst.",
+                    "Proście, a będzie wam dane, szukajcie, a znajdziecie.", "Thank You Mario, But Our Princess is in Another Castle!"]
     print("\n" + encouragement[random.randint(0, (len(encouragement) - 1))])
 
 def clear_screen_slowly(wait=1):
     time.sleep(wait)
-    system("cls")
+    if name == "nt":
+        system("cls")
+    else:
+        system("clear")
 
 def ask_question(question):
-    #TODO: clean up clear screen; adjust for Linux
     if question.get("clear_screen"):
         clear_screen_slowly()
     print(question["question"], end="")
@@ -62,12 +70,16 @@ def preview_answer(question):
     print(question["answer"], "\n")
 
 def ask_questions(questions, training_mode=False):
-    for question in questions:
-        ask_question(question)
-        if training_mode:
-            preview_answer(question)
-        answer = get_answer(question)
-        check_answer(answer, question)
+    try:
+        for question in questions:
+            ask_question(question)
+            if training_mode:
+                preview_answer(question)
+            answer = get_answer(question)
+            check_answer(answer, question)
+    except KeyboardInterrupt:
+        print("\n\n\nSo long! Farewell! Auf Wiedersehen! Goodbye!\n")
+        exit()
 
 #####################################
 ###      Fill in the Blank        ###

@@ -29,8 +29,10 @@ import infrastructure_services.ip_sla
 import infrastructure_services.netflow
 # Beyond ENARSI
 import beyond_enarsi.beyond_enarsi
-#
+# Dev
 import dev.pex
+import dev.regex
+import dev.git
 
 # Quiz Tools
 from quiz_tools import ask_questions
@@ -90,7 +92,9 @@ module_beyond_enarsi = [
 ]
 
 module_dev = [
-    dev.pex.questions_pexpect
+    dev.pex.questions_pexpect,
+    dev.regex.questions_regex,
+    dev.git.questions.git
 ]
 
 modules = [module_layer_3, module_vpn, module_infra_security,
