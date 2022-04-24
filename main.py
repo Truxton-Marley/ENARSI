@@ -31,7 +31,6 @@ import infrastructure_services.netflow
 import beyond_enarsi.beyond_enarsi
 # Dev
 import dev.pex
-import dev.regex
 import dev.git
 
 # Quiz Tools
@@ -93,7 +92,6 @@ module_beyond_enarsi = [
 
 module_dev = [
     dev.pex.questions_pexpect,
-    dev.regex.questions_regex,
     dev.git.questions.git
 ]
 
@@ -132,5 +130,3 @@ for i in range(4):
     clear_screen_slowly(wait=2)
 
 print("\nThat's it for now. Updates to follow.\n")
-
-# TODO: CoPP show output
