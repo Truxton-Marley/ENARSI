@@ -92,7 +92,7 @@ module_beyond_enarsi = [
 
 module_dev = [
     dev.pex.questions_pexpect,
-    dev.git.questions.git
+    dev.git.questions_git
 ]
 
 modules = [module_layer_3, module_vpn, module_infra_security,
