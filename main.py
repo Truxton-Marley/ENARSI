@@ -32,6 +32,8 @@ import beyond_enarsi.beyond_enarsi
 # Dev
 import dev.pex
 import dev.git
+# DC
+import dc.network
 
 # Quiz Tools
 from quiz_tools import ask_questions
@@ -95,8 +97,13 @@ module_dev = [
     dev.git.questions_git
 ]
 
+module_dc = [
+    dc.network.questions_nxos
+]
+
 modules = [module_layer_3, module_vpn, module_infra_security,
-           module_infra_services, module_beyond_enarsi, module_dev]
+           module_infra_services, module_beyond_enarsi, module_dev,
+           module_dc]
 
 system('cls')
 print("""What would you like to practice today?
@@ -107,7 +114,8 @@ print("""What would you like to practice today?
 4) Infrastructure Security
 5) Infrastructure Services
 6) Beyond Enarsi
-7) Dev
+7) Dev (new, in progress)
+8) Data Center (new, in progress)
 """)
 
 # TODO: add error handling here, maybe move this to a function in

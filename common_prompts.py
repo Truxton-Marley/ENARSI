@@ -31,3 +31,7 @@ config_pmap_class = "R1(config-pmap-c)#"
 config_service_policy = "R1(config-service-policy)#"
 # DHCP
 config_dhcpv6 = "pinecone(config-dhcpv6)#"
+
+# Nexus
+nx_priv_exec = "NX-1#"
+nx_config = "NX-1(config)#"
