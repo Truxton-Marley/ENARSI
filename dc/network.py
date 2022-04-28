@@ -206,6 +206,80 @@ license grace-period
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
 },
+{
+"question" : """
+VDC - Virtual Device Context
+
+Divide physical switch into multiple logical switches
+Supported on the Nexus 7000
+_____________________________________________________
+
+vPC Virtual Port Channels
+
+Like Juniper MC-LAG
+_____________________________________________________
+
+Linux like use of > and >> and grep/egrep
+
+show ip int brief >> bootflash:daily_interfaces.txt
+
+---
+pass
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+Other Useful Features:
+
+show cli list [str]
+show cli syntax [cmd]
+show running-config diff
+show tech-support
+show tech-support [feature]
+show tech details (or tac-pac <---show tech details and compress / store in bootflash:)
+
+---
+show cli list bgp
+""",
+"answer" : "show cli list bgp",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+More Useful Features:
+
+# Built in Debug-like per-feature output with:
+show <featire> internal event-history
+show ip ospf internal event-history adjacency
+
+# Config Checkpoint:
+checkpoint my_checkpoint
+show diff rollback-patch checkpoint my_checkpoint running-config
+
+# Python
+python
+quit()
+
+# Bash
+feature bash-shell
+run bash
+---
+pass
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
 ]
 
 questions_ospf = [
@@ -228,9 +302,13 @@ show run ospf
 conf t
 !
 feature ospf
+featrue ospfv3
 !
 router ospf 42
  router-id 42.42.42.42
+ area 0.0.0.2 stub
+ area 0.0.0.3 stub no-summary
+ area 0.0.0.4 nssa [default-information-originate] [no-summary]
 !
 int lo0
  ip router ospf 42 area 0.0.0.0
@@ -250,6 +328,18 @@ Enable the OSPF feature.
 },
 {
 "question" : """
+Redistribute into OSPF:
+
+Route-Maps required!!!
+
+route-map bgp-to-ospf
+ match ip address prefix-list b2o
+!
+ip prefix-list b20 permit 0.0.0.0/0 le 32
+!
+router ospf 42
+ redistribute bgp 65530 route-map b20
+
 """,
 "answer" : "",
 "prompt": cp.nx_priv_exec,
@@ -259,6 +349,212 @@ Enable the OSPF feature.
 },
 {
 "question" : """
+See the Enarsi L3 course for more detail on OSPF and OSPFv3.
+---
+pass
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+}
+]
+
+questions_bgp = [
+    {
+"question" : """
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+]
+
+questions_multicast = [
+    {
+"question" : """
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+]
+
+questions_overlays_otv = [
+    {
+"question" : """
+OTV - Overlay Transport Virtualization
+
+OTV 1.0:
+[ Outer Frame | Outer IP (20-Bytes) | OTV Shim (8-Bytes) |  Inner Frame (14-Bytes) | Payload | CRC ]
+    802.1q header becomes part of OTV Shim
+
+OTV 2.5:
+[ Outer Frame | Outer IP (20-Bytes) | UDP | OTV Shim (8-Bytes) |  Inner Frame (14-Bytes) | Payload | CRC ]
+
+DCI - Datacenter Interconnect
+
+MAC-in-IP
+    -Uses IS-IS as the control protocol
+        +Advertise MAC reachability information
+        +OTV edge devices send IS-IS Hellos
+
+Adds a 42 Byte header, DF-bit set
+    MTUs:
+    -1442 Bytes for multicast traffic
+    -1450 Bytes for unicast traffic
+
+OTV Edge Device
+    -Join Interface
+        +Uplink to the overlay
+        +Forwards OTV control and data traffic
+        +Layer 3
+    -Internal Interfaces
+        +Layer 2 torwards the site
+        +No OTV config needed
+        +STP edge, BPDUs stop here
+    -Overlay Interface
+        +Virtual Interface with OTV configuration
+        +Multi-access multicast capable
+        +Encapsulates L2 frames
+
+Authoritative Edge Device
+    -Ordinal Number, 0: even VLANs, 1: odd VLANs
+
+Site Adjacency
+
+Site VLAN
+    -Dedicated for the OTV and not extended across the overlay
+    -Needs to be the same VLAN at all OTV sites
+
+Site-ID
+    -Must be the same for all edge devices
+    -Shared via IS-IS PDUs
+
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+OTV Multicast
+
+feature otv
+!
+otv site-vlan 42
+!
+interface Overlay0
+ description DC-1
+ otv join-interface port-channel5
+ otv control-group 239.12.12.12
+ otv data-group 232.1.1.0/24
+ otv extend-vlan 200-400
+ no shutdown
+!
+# Must be in range 0x1 - 0xffffff
+otv site-identifier 0x1
+
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+OTV Unicast
+feature otv
+!
+otv site-vlan 42
+!
+interface Overlay0
+ description DC-1
+ otv join-interface port-channel5
+ otv use-adjacency-server 10.10.10.10 unicast-only
+ otv adjacency-server unicast-only
+ otv extend-vlan 200-400
+ no shutdown
+!
+# Must be in range 0x1 - 0xffffff
+otv site-identifier 0x1
+
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+OTV Verify
+
+show otv overlay 0
+show otv adjacency
+show otv internal adjacency
+show tunnel internal implicit otv brief
+show otv vlan
+
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+]
+
+
+questions_overlays_vxlan = [
+    {
+"question" : """
+VXLAN
+
 """,
 "answer" : "",
 "prompt": cp.priv_exec,
