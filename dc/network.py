@@ -551,9 +551,35 @@ show otv vlan
 
 
 questions_overlays_vxlan = [
-    {
+{
 "question" : """
 VXLAN
+
+VNID, VTEP, NVE
+
+Flood and Learn:
+    -Data-Plane learning mechanism
+    -Use Multicast Traffic
+    -VNIs are mapped to a multicast group
+Ingress Replication:
+    -Replicate BUM traffic to remote VTEPs as unicast
+    -Static VTEP configuration
+LISP: Like with SD-Acces
+EVPN: MP-BGP
+
+VXLAN Header:
+[ Flags (8-bits) | Reserved (24-bits) | Instance-ID (24-bits) | Reserved (8-bits)]
+
+UDP Destination 4789
+
+VTEPs:
+    -Can be:
+        +Switchport interfaces on the local LAN
+        +L3 interfaces
+        +SVIs
+
+VXLAN Gateway:
+    -VTEP that bridges traffic between VXLAN segments
 
 """,
 "answer" : "",
@@ -562,4 +588,205 @@ VXLAN
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
 },
+{
+"question" : """
+Flood and Learn
+(Data-Plane Learning)
+
+feature nv overlay
+feature vn-segment-vlan-based
+
+vlan 1501
+ vn-segment 10501
+!
+interface nve 1
+ source-interface lo42
+ member vni 10501
+!
+show nve peers
+show nve interface
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+Ingress Replication:
+(Data-Plane Learning)
+
+feature nv overlay
+
+interface nve 1
+ source-interface lo42
+ ingress-replication protocol static
+  peer-ip x.x.x.x
+  peer-ip x.x.x.x
+ member vni 10501
+!
+show nve peers
+show nve interface
+
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+EVPN
+(Control-Plane Learning)
+
+MP-BGP
+Distributed Anycast Gateway
+
+Tenant - VRF
+    -1 L3 VNI
+    -Multiple L2 VNIs per tenant
+
+!Distributed Anycast Gateway
+fabric forwarding anycast-gateway-mac aaaa.1111.aaaa
+!
+interface Vlan42
+ no shutdown
+ vrf context my-evpn-kunde
+ ip address 10.10.10.10/24
+ fabric forwarding mode anycast-gateway
+!
+
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+]
+
+
+
+questions_aci = [
+{
+"question" : """
+ACI - Cisco's core SDN solution for the data center
+
+
+ACI - Application Centric Infrastructure
+    - Basic Network Policy, Automation...
+NAE - Network Assurance Engine
+    - SLAs...
+Tetration - 
+    - L4-L7 Services...
+
+---
+
+Fabric
+    -Spine and Leaf / Clos
+        +9500 Spines | 9300 Leafs
+    -Unnumbered interfaces
+    -IS-IS
+    -Anycast Gateways (Leaf layer)
+    -eVXLAN / MP-BGP
+
+---
+Logical Constructs:
+    -Tenant
+    -L3 Private Network (Context/VRF)
+    -Bridge Domain (Container for subnets)
+    -Subnet
+    -End-Point Group (Container of objects requiring the same policy)
+    -Contract
+
+---
+pass
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+
+admin
+!v3G@!4@Y
+
+Nexus 9000 has two modes of operation: NX-OS & ACI Mode
+
+ACI Mode:
+    -Only programmable via Policy-Engine in the APIC Controller
+    -No CLI config
+    -Object Oriented Schema, XML or JSON
+
+---
+pass
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+ACI Programmability
+
+Cobra SDK
+
+The Object Model:
+    Logical Model
+    Concrete Model
+
+Everything within an ACI Fabric is an object.
+MO - Managed Objects
+MIT - Management Information Tree
+    -MOs connected via Parent/Child relationship
+RN - Relative Name
+    -tn-: Tenant, ctx-: Context/VRF, BD-: Bridge Domain, ap-: AppProfile, etc.
+DN - Distinguished Name
+    -uni/tn-Cats/ap-Toys/epg-Feathers
+        fvAp is the parent class, Toys is the specific fvAp object: ap-Toys/epg-Feathers
+        fvTenant is the next parent class and Cats si the specific fvTenant object: tn-Cats/ap-Toys/epg-Feathers
+        Root is the parent of fvTenant: uni/tn-Cats/ap-Toys/epg-Feathers
+    -used to make API requests
+
+Sample API Get request:
+    https://sandboxapicdc.cisco.com/api/class/fvAp.json?
+    List all Application Profiles and JSON formatted listing of their attributes
+
+---
+pass
+""",
+"answer" : "",
+"prompt": cp.priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+# {
+# "question" : """
+
+
+# """,
+# "answer" : "",
+# "prompt": cp.priv_exec,
+# "clear_screen": True,
+# "suppress_positive_affirmation": False,
+# "post_task_output": """"""
+# },
 ]

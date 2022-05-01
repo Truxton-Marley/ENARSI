@@ -5,7 +5,7 @@ from os import system, name
 from sys import exit
 
 ###################################
-###      Multiple Choice        ###
+###         Long Answer         ###
 ###################################
 
 def print_encouragement():
@@ -81,9 +81,9 @@ def ask_questions(questions, training_mode=False):
         print("\n\n\nSo long! Farewell! Auf Wiedersehen! Goodbye!\n")
         exit()
 
-#####################################
-###      Fill in the Blank        ###
-#####################################
+###############################################
+###      Fill in the Blank (In Progress)    ###
+###############################################
 
 def get_text(file):
     text = ""

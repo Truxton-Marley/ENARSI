@@ -98,7 +98,8 @@ module_dev = [
 ]
 
 module_dc = [
-    dc.network.questions_nxos
+    dc.network.questions_nxos,
+    dc.network.questions_overlays_otv
 ]
 
 modules = [module_layer_3, module_vpn, module_infra_security,
