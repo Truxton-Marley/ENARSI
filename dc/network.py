@@ -1,5 +1,9 @@
 import common_prompts as cp
 
+# Labs based on Vinit Jain's:
+#     https://learning.oreilly.com/videos/ccnp-data-center/9780136590279/
+#     CCNP Data Center Core DCCOR 350-601 Complete Video Course
+
 questions_nxos = [
 {
 "question" : """
@@ -553,6 +557,11 @@ show otv vlan
 questions_overlays_vxlan = [
 {
 "question" : """
+
+Labs based on Vinit Jain's:
+    https://learning.oreilly.com/videos/ccnp-data-center/9780136590279/
+    CCNP Data Center Core DCCOR 350-601 Complete Video Course
+
 VXLAN
 
 VNID, VTEP, NVE
@@ -580,7 +589,8 @@ VTEPs:
 
 VXLAN Gateway:
     -VTEP that bridges traffic between VXLAN segments
-
+---
+pass
 """,
 "answer" : "",
 "prompt": cp.priv_exec,
@@ -593,18 +603,82 @@ VXLAN Gateway:
 Flood and Learn
 (Data-Plane Learning)
 
-feature nv overlay
+###Leafs:###
+feature pim
+feature isis
 feature vn-segment-vlan-based
+feature nv overlay
 
-vlan 1501
- vn-segment 10501
+ip pim rp-address 111.111.111.111 group-list 224.0.0.0/4
+ip pim ssm range 232.0.0.0/8
+
+vlan 42
+  vn-segment 4200
+vlan 43
+  vn-segment 4300
+
 !
-interface nve 1
- source-interface lo42
- member vni 10501
+interface nve1
+  no shutdown
+  source-interface loopback1
+  member vni 4200
+    mcast-group 231.1.42.42
+  member vni 4300
+    mcast-group 231.1.43.43
 !
 show nve peers
 show nve interface
+---
+show nve peers
+""",
+"answer" : "",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """Interface Peer-IP          State LearnType Uptime   Router-Mac
+--------- ---------------  ----- --------- -------- -----------------
+nve1      192.168.2.2      Down  DP        00:08:11 n/a
+"""
+},
+{
+"question" : """
+---
+show nve interface
+""",
+"answer" : "show nve interface",
+"prompt": cp.priv_exec,
+"clear_screen": False,
+"suppress_positive_affirmation": False,
+"post_task_output": """Interface: nve1, State: Up, encapsulation: VXLAN
+ VPC Capability: VPC-VIP-Only [not-notified]
+ Local Router MAC: 5254.0002.fc2b
+ Host Learning Mode: Data-Plane
+ Source-Interface: loopback1 (primary: 192.168.1.1, secondary: 0.0.0.0)
+"""
+},
+{
+"question" : """
+VXLAN Flood and Learn
+
+Spine Mcast config:
+
+feature pim
+
+ip pim rp-address 111.111.111.111 group-list 224.0.0.0/4
+ip pim ssm range 232.0.0.0/8
+ip pim anycast-rp 111.111.111.111 11.11.11.11
+ip pim anycast-rp 111.111.111.111 12.12.12.12
+!
+interface loopback0
+  ip pim sparse-mode
+!
+interface Ethernet2/1
+  ip pim sparse-mode
+!
+interface Ethernet2/2
+  ip pim sparse-mode
+---
+pass
 """,
 "answer" : "",
 "prompt": cp.priv_exec,
