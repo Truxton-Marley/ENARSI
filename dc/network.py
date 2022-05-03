@@ -88,7 +88,7 @@ PSS - Persistent Storage Service
 show system internal flash
 
 """,
-"answer" : "",
+"answer" : "show system internal flash",
 "prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
@@ -475,7 +475,8 @@ Site VLAN
 Site-ID
     -Must be the same for all edge devices
     -Shared via IS-IS PDUs
-
+---
+pass
 """,
 "answer" : "",
 "prompt": cp.priv_exec,
@@ -501,7 +502,8 @@ interface Overlay0
 !
 # Must be in range 0x1 - 0xffffff
 otv site-identifier 0x1
-
+---
+pass
 """,
 "answer" : "",
 "prompt": cp.priv_exec,
@@ -526,7 +528,8 @@ interface Overlay0
 !
 # Must be in range 0x1 - 0xffffff
 otv site-identifier 0x1
-
+---
+pass
 """,
 "answer" : "",
 "prompt": cp.priv_exec,
@@ -543,7 +546,8 @@ show otv adjacency
 show otv internal adjacency
 show tunnel internal implicit otv brief
 show otv vlan
-
+---
+pass
 """,
 "answer" : "",
 "prompt": cp.priv_exec,
@@ -602,6 +606,7 @@ pass
 "question" : """
 Flood and Learn
 (Data-Plane Learning)
+!Relies on multicast
 
 ###Leafs:###
 feature pim
@@ -631,7 +636,7 @@ show nve interface
 ---
 show nve peers
 """,
-"answer" : "",
+"answer" : "show nve peers",
 "prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
@@ -646,6 +651,29 @@ nve1      192.168.2.2      Down  DP        00:08:11 n/a
 show nve interface
 """,
 "answer" : "show nve interface",
+"prompt": cp.priv_exec,
+"clear_screen": False,
+"suppress_positive_affirmation": False,
+"post_task_output": """Leaf2(config-if)# show nve vni data-plane
+Codes: CP - Control Plane        DP - Data Plane
+       UC - Unconfigured         SA - Suppress ARP
+       SU - Suppress Unknown Unicast
+
+Interface VNI      Multicast-group   State Mode Type [BD/VRF]      Flags
+--------- -------- ----------------- ----- ---- ------------------ -----
+nve1      4200     231.1.42.42       Up    DP   L2 [42]
+nve1      4300     231.1.43.43       Up    DP   L2 [43]
+
+Leaf2(config-if)#
+
+"""
+},
+{
+"question" : """
+---
+show nve vni data-plane
+""",
+"answer" : "show nve vni data-plane",
 "prompt": cp.priv_exec,
 "clear_screen": False,
 "suppress_positive_affirmation": False,
@@ -695,21 +723,26 @@ feature nv overlay
 
 interface nve 1
  source-interface lo42
- ingress-replication protocol static
-  peer-ip x.x.x.x
-  peer-ip x.x.x.x
  member vni 10501
+  ingress-replication protocol static
+   peer-ip x.x.x.x
+   peer-ip x.x.x.x
+ 
 !
 show nve peers
 show nve interface
-
+---
+pass
 """,
 "answer" : "",
 "prompt": cp.priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
-},
+}
+]
+
+questions_overlays_evpn = [
 {
 "question" : """
 EVPN
@@ -728,13 +761,14 @@ fabric forwarding anycast-gateway-mac aaaa.1111.aaaa
 interface Vlan42
  no shutdown
  vrf context my-evpn-kunde
- ip address 10.10.10.10/24
+ ip address 10.42.42.254/24
  fabric forwarding mode anycast-gateway
 !
-
+---
+fabric forwarding anycast-gateway-mac aaaa.1111.aaaa
 """,
-"answer" : "",
-"prompt": cp.priv_exec,
+"answer" : "fabric forwarding anycast-gateway-mac aaaa.1111.aaaa",
+"prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -744,10 +778,310 @@ interface Vlan42
 
 """,
 "answer" : "",
-"prompt": cp.priv_exec,
+"prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
+},
+{
+"question" : """
+
+
+
+""",
+"answer" : "",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+BGP EVPN Route Types:
+    -Type 1 Ethernet Auto-Discovery Route
+    -Type 2 MAC advertisement route -> L2 VNI MAC/MAC-IP
+        + MAC - L2 VNI
+        + MAC-IP - L3 VNI
+    -Type 3 Inclusive Multicast Route
+    -Type 4 Ethernet Segment Route
+    -Type 5 IP Prefix Route -> L3 VNI Route
+
+iBGP: Spines are Route Reflectors
+eBGP: Spines in one AS, Leafs in the other
+
+""",
+"answer" : "",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+EVPN Configuration:
+
+install feature-set fabric
+feature-set fabric
+feature fabric forwarding
+feature isis    !<---Or OSPF
+feature bgp
+feature pim !<---Needed for Flood and Learn, not needed for Ingress Replication
+feature nv overlay
+feature vn-segment-vlan-based   !<---Not needed on spine
+feature interface-vlan
+!
+nv overlay evpn
+!
+fabric forwarding anycast-gateway-mac 4242.4242.4242
+!
+vrf context evpn_a
+ vni 4100
+  rd auto
+  add ipv4 unicast
+   route-target both auto
+!
+! Anycast Gateway for L2 VNIs:
+interface Vlan42
+  no shutdown
+  vrf member evpn_a
+  no ip redirects
+  ip address 10.42.42.254/24
+  fabric forwarding mode anycast-gateway
+!
+interface Vlan43
+  no shutdown
+  vrf member evpn_a
+  no ip redirects
+  ip address 10.43.43.254/24
+  fabric forwarding mode anycast-gateway
+!
+! L3 VNI:
+interface Vlan41
+  vrf member evpn_a
+  ip forward
+!
+router bgp 42
+  router-id 2.2.2.2
+  neighbor 11.11.11.11
+    remote-as 42
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community both
+  neighbor 12.12.12.12
+    remote-as 42
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community both
+  vrf evpn_a
+    address-family ipv4 unicast
+      advertise l2vpn evpn
+evpn
+  vni 4200 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 4300 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+!
+interface nve1
+  no shutdown
+  source-interface loopback1
+  host-reachability protocol bgp
+  member vni 4100 associate-vrf
+  member vni 4200
+    mcast-group 231.1.42.42
+  member vni 4300
+    mcast-group 231.1.43.43
+---
+pass
+""",
+"answer" : "",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+Verification:
+
+show mac address-table dynamic
+show l2route evpn mac all
+show bgp l2vpn evpn
+show nve peers
+---
+
+show bgp l2vpn evpn summary
+""",
+"answer" : "show bgp l2vpn evpn summary",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """Sp1# show bgp l2vpn evpn summary
+BGP summary information for VRF default, address family L2VPN EVPN
+BGP router identifier 11.11.11.11, local AS number 42
+BGP table version is 12, L2VPN EVPN config peers 2, capable peers 2
+2 network entries and 2 paths using 288 bytes of memory
+BGP attribute entries [2/288], BGP AS path entries [0/0]
+BGP community entries [0/0], BGP clusterlist entries [0/0]
+
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+1.1.1.1         4    42      17      36       12    0    0 00:05:37 1
+2.2.2.2         4    42      38      45       12    0    0 00:08:33 1
+Sp1#
+"""
+},
+{
+"question" : """
+Verification:
+
+show mac address-table dynamic
+show l2route evpn mac all
+show bgp l2vpn evpn
+show nve peers
+
+---
+show bgp l2vpn evpn
+""",
+"answer" : "show bgp l2vpn evpn",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """Sp1# show bgp l2vpn evpn
+BGP routing table information for VRF default, address family L2VPN EVPN
+BGP table version is 12, local router ID is 11.11.11.11
+Status: s-suppressed, x-deleted, S-stale, d-dampened, h-history, *-valid, >-best
+Path type: i-internal, e-external, c-confed, l-local, a-aggregate, r-redist, I-i
+njected
+Origin codes: i - IGP, e - EGP, ? - incomplete, | - multipath, & - backup
+
+   Network            Next Hop            Metric     LocPrf     Weight Path
+Route Distinguisher: 1.1.1.1:32809
+*>i[2]:[0]:[0]:[48]:[5254.000b.53bc]:[32]:[10.42.42.11]/272
+                      192.168.1.1                       100          0 i
+
+Route Distinguisher: 2.2.2.2:32809
+*>i[2]:[0]:[0]:[48]:[5254.001c.13c4]:[32]:[10.42.42.22]/272
+                      192.168.2.2                       100          0 i
+"""
+},
+{
+"question" : """
+Verification:
+
+show mac address-table dynamic
+show l2route evpn mac all
+show bgp l2vpn evpn
+show nve peers
+---
+show l2route evpn mac all
+""",
+"answer" : "",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """Leaf1# show l2route evpn mac all
+Topology    Mac Address    Prod   Next Hop (s)
+----------- -------------- ------ ---------------
+42          5254.001c.13c4 BGP    192.168.2.2
+"""
+},
+{
+"question" : """
+Verification:
+
+show mac address-table dynamic
+show l2route evpn mac all
+show bgp l2vpn evpn
+show nve peers
+---
+show nve interface
+""",
+"answer" : "show nve interface",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """Leaf1# show nve interface
+Interface: nve1, State: Up, encapsulation: VXLAN
+ VPC Capability: VPC-VIP-Only [not-notified]
+ Local Router MAC: 5254.0002.fc2b
+ Host Learning Mode: Control-Plane
+ Source-Interface: loopback1 (primary: 192.168.1.1, secondary: 0.0.0.0)
+"""
+},
+{
+"question" : """
+Verification:
+
+show mac address-table dynamic
+show l2route evpn mac all
+show bgp l2vpn evpn
+show nve peers
+---
+show bgp l2vpn evpn 10.42.42.22
+""",
+"answer" : "show bgp l2vpn evpn 10.42.42.22",
+"prompt": cp.nx_priv_exec,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """Leaf1# show bgp l2vpn evpn 10.42.42.22
+Route Distinguisher: 1.1.1.1:32809    (L2VNI 4200)
+BGP routing table entry for [2]:[0]:[0]:[48]:[5254.001c.13c4]:[32]:[10.42.42.22]
+/272, version 4
+Paths: (1 available, best #1)
+Flags: (0x00021a) on xmit-list, is in l2rib/evpn, is not in HW,
+
+  Advertised path-id 1
+  Path type: internal, path is valid, is best path
+             Imported from 2.2.2.2:32809:[2]:[0]:[0]:[48]:[5254.001c.13c4]:[32]:
+[10.42.42.22]/272
+  AS-Path: NONE, path sourced internal to AS
+    192.168.2.2 (metric 81) from 11.11.11.11 (11.11.11.11)
+      Origin IGP, MED not set, localpref 100, weight 0
+      Received label 4200 4100
+      Extcommunity:
+          RT:42:4200
+          ENCAP:8
+          Router MAC:5254.000e.2d38
+      Originator: 2.2.2.2 Cluster list: 11.11.11.11
+
+  Path-id 1 not advertised to any peer
+
+Route Distinguisher: 2.2.2.2:32809
+BGP routing table entry for [2]:[0]:[0]:[48]:[5254.001c.13c4]:[32]:[10.42.42.22]
+/272, version 5
+Paths: (2 available, best #2)
+Flags: (0x000202) on xmit-list, is not in l2rib/evpn, is not in HW, , is locked
+
+  Path type: internal, path is valid, not best reason: Neighbor Address
+  AS-Path: NONE, path sourced internal to AS
+    192.168.2.2 (metric 81) from 12.12.12.12 (12.12.12.12)
+      Origin IGP, MED not set, localpref 100, weight 0
+      Received label 4200 4100
+      Extcommunity:
+          RT:42:4200
+          ENCAP:8
+          Router MAC:5254.000e.2d38
+      Originator: 2.2.2.2 Cluster list: 12.12.12.12
+
+  Advertised path-id 1
+  Path type: internal, path is valid, is best path
+  AS-Path: NONE, path sourced internal to AS
+    192.168.2.2 (metric 81) from 11.11.11.11 (11.11.11.11)
+      Origin IGP, MED not set, localpref 100, weight 0
+      Received label 4200 4100
+      Extcommunity:
+          RT:42:4200
+          ENCAP:8
+          Router MAC:5254.000e.2d38
+      Originator: 2.2.2.2 Cluster list: 11.11.11.11
+
+  Path-id 1 not advertised to any peer
+
+Leaf1#
+"""
 },
 ]
 
