@@ -125,10 +125,16 @@ print("""What would you like to practice today?
 # TODO: add error handling here, maybe move this to a function in
 #       quiz tools.
 subject = ""
-try:
-    subject = int(input("Please select a number: "))
-except:
-    print("Please enter a number from the list.")
+while not subject:
+    try:
+        subject = int(input("Please select a number: "))
+        if (subject < 1) or (subject > (len(modules)+1)):
+            subject = ""
+            print("That number is out of range")
+    except KeyboardInterrupt:
+        exit()
+    except:
+        print("Please enter a number from the list.")
 
 system('cls')
 

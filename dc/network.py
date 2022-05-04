@@ -561,7 +561,6 @@ pass
 questions_overlays_vxlan = [
 {
 "question" : """
-
 Labs based on Vinit Jain's:
     https://learning.oreilly.com/videos/ccnp-data-center/9780136590279/
     CCNP Data Center Core DCCOR 350-601 Complete Video Course
@@ -577,7 +576,7 @@ Flood and Learn:
 Ingress Replication:
     -Replicate BUM traffic to remote VTEPs as unicast
     -Static VTEP configuration
-LISP: Like with SD-Acces
+LISP: Like with SD-Access
 EVPN: MP-BGP
 
 VXLAN Header:
@@ -597,7 +596,7 @@ VXLAN Gateway:
 pass
 """,
 "answer" : "",
-"prompt": cp.priv_exec,
+"prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -651,10 +650,10 @@ nve1      192.168.2.2      Down  DP        00:08:11 n/a
 show nve interface
 """,
 "answer" : "show nve interface",
-"prompt": cp.priv_exec,
+"prompt": cp.nx_priv_exec,
 "clear_screen": False,
 "suppress_positive_affirmation": False,
-"post_task_output": """Leaf2(config-if)# show nve vni data-plane
+"post_task_output": """NX-OS# show nve vni data-plane
 Codes: CP - Control Plane        DP - Data Plane
        UC - Unconfigured         SA - Suppress ARP
        SU - Suppress Unknown Unicast
@@ -664,7 +663,6 @@ Interface VNI      Multicast-group   State Mode Type [BD/VRF]      Flags
 nve1      4200     231.1.42.42       Up    DP   L2 [42]
 nve1      4300     231.1.43.43       Up    DP   L2 [43]
 
-Leaf2(config-if)#
 
 """
 },
@@ -674,7 +672,7 @@ Leaf2(config-if)#
 show nve vni data-plane
 """,
 "answer" : "show nve vni data-plane",
-"prompt": cp.priv_exec,
+"prompt": cp.nx_priv_exec,
 "clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """Interface: nve1, State: Up, encapsulation: VXLAN
@@ -709,7 +707,7 @@ interface Ethernet2/2
 pass
 """,
 "answer" : "",
-"prompt": cp.priv_exec,
+"prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -773,28 +771,28 @@ fabric forwarding anycast-gateway-mac aaaa.1111.aaaa
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
 },
-{
-"question" : """
+# {
+# "question" : """
 
-""",
-"answer" : "",
-"prompt": cp.nx_priv_exec,
-"clear_screen": True,
-"suppress_positive_affirmation": False,
-"post_task_output": """"""
-},
-{
-"question" : """
+# """,
+# "answer" : "",
+# "prompt": cp.nx_priv_exec,
+# "clear_screen": True,
+# "suppress_positive_affirmation": False,
+# "post_task_output": """"""
+# },
+# {
+# "question" : """
 
 
 
-""",
-"answer" : "",
-"prompt": cp.nx_priv_exec,
-"clear_screen": True,
-"suppress_positive_affirmation": False,
-"post_task_output": """"""
-},
+# """,
+# "answer" : "",
+# "prompt": cp.nx_priv_exec,
+# "clear_screen": True,
+# "suppress_positive_affirmation": False,
+# "post_task_output": """"""
+# },
 {
 "question" : """
 BGP EVPN Route Types:
@@ -919,8 +917,7 @@ show bgp l2vpn evpn summary
 "prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
-"post_task_output": """Sp1# show bgp l2vpn evpn summary
-BGP summary information for VRF default, address family L2VPN EVPN
+"post_task_output": """BGP summary information for VRF default, address family L2VPN EVPN
 BGP router identifier 11.11.11.11, local AS number 42
 BGP table version is 12, L2VPN EVPN config peers 2, capable peers 2
 2 network entries and 2 paths using 288 bytes of memory
@@ -949,8 +946,7 @@ show bgp l2vpn evpn
 "prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
-"post_task_output": """Sp1# show bgp l2vpn evpn
-BGP routing table information for VRF default, address family L2VPN EVPN
+"post_task_output": """BGP routing table information for VRF default, address family L2VPN EVPN
 BGP table version is 12, local router ID is 11.11.11.11
 Status: s-suppressed, x-deleted, S-stale, d-dampened, h-history, *-valid, >-best
 Path type: i-internal, e-external, c-confed, l-local, a-aggregate, r-redist, I-i
@@ -978,7 +974,7 @@ show nve peers
 ---
 show l2route evpn mac all
 """,
-"answer" : "",
+"answer" : "show l2route evpn mac all",
 "prompt": cp.nx_priv_exec,
 "clear_screen": True,
 "suppress_positive_affirmation": False,
@@ -1104,7 +1100,7 @@ Tetration -
 
 Fabric
     -Spine and Leaf / Clos
-        +9500 Spines | 9300 Leafs
+        * 9500 Spines | 9300 Leafs
     -Unnumbered interfaces
     -IS-IS
     -Anycast Gateways (Leaf layer)
@@ -1123,17 +1119,13 @@ Logical Constructs:
 pass
 """,
 "answer" : "",
-"prompt": cp.priv_exec,
+"prompt": "> ",
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
 },
 {
 "question" : """
-
-admin
-!v3G@!4@Y
-
 Nexus 9000 has two modes of operation: NX-OS & ACI Mode
 
 ACI Mode:
@@ -1145,7 +1137,7 @@ ACI Mode:
 pass
 """,
 "answer" : "",
-"prompt": cp.priv_exec,
+"prompt": "> ",
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
@@ -1181,7 +1173,7 @@ Sample API Get request:
 pass
 """,
 "answer" : "",
-"prompt": cp.priv_exec,
+"prompt": "> ",
 "clear_screen": True,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
