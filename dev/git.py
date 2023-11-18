@@ -13,8 +13,12 @@ Enable nonlinear development.
 https://git-scm.com
 
 Initial Setup:
+git config --global init.defaultBranch main
 git config --global user.name "Hans Schmidt"
 git config --global user.email "hans.schmidt@erdapfel.de"
+git config --global core.editor "vim"
+
+git config --list
 
 user@lochst$ git init   <---Creates a .git file
 _________________________________________________________
@@ -25,6 +29,65 @@ git init
 "answer" : "git init",
 "prompt": cp.single_chevron,
 "clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+
+git config --global user.name "Hans Schmidt"
+""",
+"answer" : "git config --global user.name \"Hans Schmidt\"",
+"prompt": cp.single_chevron,
+"clear_screen": False,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+# Create a checkout new branch:
+git checkout -b mycode
+
+# List all branches:
+git branch
+
+Create a checkout new branch?
+""",
+"answer" : "git checkout -b mycode",
+"prompt": cp.single_chevron,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+# Download the latest updates:
+git fetch
+
+# Revert changes for one file:
+git checkout thispath/thisfile
+
+# Restore file from a previous commit (update to checkout):
+git restore --source f6538be thisfile
+
+# Revert all changes since last commit:
+git reset --hard
+
+Download the latest updates?
+""",
+"answer" : "git fetch",
+"prompt": cp.single_chevron,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+Revert all changes since the last commit?
+""",
+"answer" : "git reset --hard",
+"prompt": cp.single_chevron,
+"clear_screen": False,
 "suppress_positive_affirmation": False,
 "post_task_output": """"""
 },
@@ -59,6 +122,11 @@ DIFF
 
 git diff
 git diff --staged
+
+git diff HEAD~<NUMBER>
+git diff HEAD~2
+
+git diff <HASH>
 
 """,
 "answer" : "git diff",
@@ -98,6 +166,16 @@ index be64d21..59957d3 100644
 },
 {
 "question" : """
+Compare 2 commits back to current HEAD
+""",
+"answer" : "git diff HEAD~2",
+"prompt": cp.single_chevron,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
 Ignore Files
 ____________
 
@@ -123,10 +201,24 @@ Git Log
 git log
 git log -3
 git log -p
+git log --oneline
 git log --pretty=oneline
 git log --pretty=full
 git log --pretty=fuller
 git log --graph
+
+Show git log in graph format?
+""",
+"answer" : "git log --graph",
+"prompt": cp.single_chevron,
+"clear_screen": True,
+"suppress_positive_affirmation": False,
+"post_task_output": """"""
+},
+{
+"question" : """
+Git `checkout` command was split into `restore` and `switch`
+
 
 """,
 "answer" : "",
