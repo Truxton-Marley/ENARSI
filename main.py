@@ -109,7 +109,7 @@ modules = [module_layer_3, module_vpn, module_infra_security,
            module_infra_services, module_beyond_enarsi, module_dev,
            module_dc]
 
-system('cls')
+clear_screen_slowly(wait=0)
 print("""What would you like to practice today?
 
 1) General Enarsi
@@ -136,7 +136,7 @@ while not subject:
     except:
         print("Please enter a number from the list.")
 
-system('cls')
+clear_screen_slowly(wait=0)
 
 for i in range(4):
     if subject == 1:
